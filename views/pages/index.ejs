@@ -1,0 +1,37 @@
+<% layout('layouts/boilerplate.ejs') -%>
+
+<body>
+    <div class="hero">
+        <div class="left">
+            <h1>Buy and Sell Used Items</h1>
+
+            <p>Find Great deals for buy and sell Used and unused items</p>
+            <div class="heroBtns">
+                <div class="heroBtn-login heroBtn" href="/login">Login</div>
+                <div class="heroBtn-signup heroBtn" href="/signup">Signup</div>
+            </div>
+        </div>
+        <div class="right">
+            <img class="hero-img" src="/images/hero.png" />
+        </div>
+    </div>
+
+
+    <div class="categories-list">
+    <h2 class="categories-title">Featured Categories</h2>
+        <div class="categories-container">
+    <% 
+    var cards = [
+        { categoryImg: '/images/appliances.png', categoryName: 'Electronics' },
+    ]; 
+    %>
+
+    <% for (var i = 0; i < cards.length; i++) { %>
+        <%- include('../partials/categoryCard.ejs', cards[i]) %>
+    <% } %>
+</div>
+
+    <img class="frame-5" src="frame-50.svg" />
+    </div>
+
+</body>

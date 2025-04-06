@@ -1,0 +1,202 @@
+body,
+body * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Merriweather-Regular", sans-serif;
+  font-size: 1rem;
+}
+
+nav {
+  background: #ffffff;
+  height: 90px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.navbar{
+  display: flex;
+  align-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+}
+
+.navbar-logo{
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 1rem;
+}
+
+.navbar-logo h1{
+  color: var(--secondary, #261fb3);
+  text-align: center;
+  font-family: "Merriweather-Bold", sans-serif;
+  font-size: 50px;
+  font-weight: 700;
+}
+
+.navbar-logo img{
+  height: 100%;
+  object-fit: cover;
+}
+
+.navbar-links{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 2rem;
+  align-self: center;
+  justify-content: end;
+}
+
+.nav-link-item{
+  color: #000000;
+  text-align: center;
+  font-size: 1rem;
+  position: relative;
+  height: 100%;
+  text-decoration: none;
+}
+
+a.nav-link-item.active{
+  color: var(--secondary, #261fb3);
+  font-weight: 700;
+  font-size: 1.2rem;
+  border-bottom: 2px solid var(--secondary, #261fb3);
+}
+
+.navbar-sellBtn{
+  background: var(--secondary, #261fb3);
+  border-radius: 10px;
+  border-style: solid;
+  border-color: var(--primary, #fbe4d6);
+  border-width: 1px;
+  width: 7rem;
+  height: 2.5rem;
+  box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.25);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+
+.hero {
+  background: linear-gradient(
+    111.27deg,
+    rgba(38, 31, 179, 1) 0%,
+    rgba(11, 15, 82, 1) 32.79275596141815%,
+    rgba(19, 24, 133, 1) 65.5855119228363%
+  );
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .left{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    gap: 2rem;;
+    padding-left: 3rem;
+
+    h1{
+      color: #ffffff;
+      text-align: left;
+      font-size: 3rem;
+      font-weight: 700;
+    }
+    
+    p{
+      color: #ffffff;
+      text-align: left;
+      font-size: 1.5rem;  
+    }
+
+    .heroBtns{
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+
+      .heroBtn{
+        background: var(--primary, #fbe4d6);
+        width: 10rem;
+        height: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #212beb;
+        font-weight: 700;
+      }
+
+      .heroBtn-signup{
+        background-color: var(--secondary, #261fb3);
+        color: #ffffff;
+        border: #fff solid 3px;
+      }
+
+    }
+    
+  }
+
+  .right{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    align-self: flex-end;
+    justify-self: flex-end;
+    justify-self: end;
+
+    .hero-img{
+      height: 80%;
+      padding: 1rem;
+      object-fit: cover;
+      background-color: #fff;
+      border-radius: 25px;
+    }
+  }
+}
+
+
+.category-card {
+  background: var(--primary, #fbe4d6);
+  border-radius: 15px;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  width: 137px;
+  height: 142px;
+  position: relative;
+}
+.category-img {
+  width: 81.75%;
+  height: 67.61%;
+  position: absolute;
+  right: 9.49%;
+  left: 8.76%;
+  bottom: 23.94%;
+  top: 8.45%;
+  overflow: visible;
+  object-fit: cover;
+}
+.category-name {
+  color: #000000;
+  text-align: left;
+  font-family: "Merriweather-Regular", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  position: absolute;
+  left: 50%;
+  translate: -50%;
+  bottom: 5.63%;
+  top: 80.28%;
+  height: 14.08%;
+}
