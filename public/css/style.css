@@ -200,3 +200,52 @@ a.nav-link-item.active{
   top: 80.28%;
   height: 14.08%;
 }
+
+footer{
+  width:100%;
+  height: 40vh;
+}
+.footer-container{
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    111.27deg,
+    rgba(38, 31, 179, 1) 0%,
+    rgba(11, 15, 82, 1) 32.79275596141815%,
+    rgba(19, 24, 133, 1) 65.5855119228363%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+ 
+.left{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .left-content{
+      .footer-logo{
+        height: 5rem;
+        object-fit: cover;
+        filter: brightness(10);
+      }
+
+      p{
+        color: #ffffff;
+        font-family: "Vina Sans", sans-serif;
+        width: 15rem;
+        font-size: 1.9rem;
+      }
+    }
+  }
+
+  .middle{
+    width: 30%;
+    
+  }
+
+  .right{
+    width: 30%;
+  }
+}
