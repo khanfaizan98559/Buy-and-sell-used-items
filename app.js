@@ -17,6 +17,11 @@ app.use(express.json());
 
 app.engine("ejs", ejsMate);
 
+
+app.get('/contact', (req, res) => {
+  res.render('pages/contact');
+});
+
 app.get('/', (req, res) => {
   res.render('pages/index');
 });

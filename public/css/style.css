@@ -3,7 +3,7 @@ body * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Merriweather-Regular", sans-serif;
+  font-family: "Merriweather",serif;
   font-size: 1rem;
 }
 
@@ -34,7 +34,6 @@ nav {
 .navbar-logo h1{
   color: var(--secondary, #261fb3);
   text-align: center;
-  font-family: "Merriweather-Bold", sans-serif;
   font-size: 50px;
   font-weight: 700;
 }
@@ -165,7 +164,13 @@ a.nav-link-item.active{
   }
 }
 
-
+.categories-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
 .category-card {
   background: var(--primary, #fbe4d6);
   border-radius: 15px;

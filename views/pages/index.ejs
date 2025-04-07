@@ -23,8 +23,13 @@
     <% 
     var cards = [
         { categoryImg: '/images/appliances.png', categoryName: 'Electronics' },
+        {
+            categoryImg: '/images/furniture.png',
+            categoryName: 'Furniture'
+        },
     ]; 
     %>
+
 
     <% for (var i = 0; i < cards.length; i++) { %>
         <%- include('../partials/categoryCard.ejs', cards[i]) %>
