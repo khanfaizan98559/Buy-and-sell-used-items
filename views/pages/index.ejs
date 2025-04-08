@@ -22,11 +22,10 @@
         <div class="categories-container">
     <% 
     var cards = [
-        { categoryImg: '/images/appliances.png', categoryName: 'Electronics' },
-        {
-            categoryImg: '/images/furniture.png',
-            categoryName: 'Furniture'
-        },
+        {categoryImg: '/images/appliances.png',categoryName: 'Electronics' },
+        {categoryImg: '/images/appliances.png',categoryName: 'appliances'},
+        {categoryImg: '/images/appliances.png',categoryName: 'appliances'},
+        {categoryImg: '/images/appliances.png',categoryName: 'appliances'},
     ]; 
     %>
 
@@ -35,8 +34,6 @@
         <%- include('../partials/categoryCard.ejs', cards[i]) %>
     <% } %>
 </div>
-
-    <img class="frame-5" src="frame-50.svg" />
     </div>
 
 </body>
