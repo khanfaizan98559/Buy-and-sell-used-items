@@ -1,0 +1,8 @@
+<div class="products-list">
+    <h2 class="products-title"><%=listTitle%></h2>
+    <div class="products-container">
+        <% for (var i = 0; i < products.length; i++) { %>
+            <%- include('../partials/productCard.ejs', products[i]) %>
+        <% } %>
+    </div>
+</div>
