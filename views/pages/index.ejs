@@ -7,12 +7,12 @@
 
             <p>Find Great deals for buy and sell Used and unused items</p>
             <div class="heroBtns">
-                <div class="heroBtn-login heroBtn" href="/login">Login</div>
-                <div class="heroBtn-signup heroBtn" href="/signup">Signup</div>
+                <div class="heroBtn-login heroBtn loginBtn" href="/login">Login</div>
+                <div class="heroBtn-signup heroBtn signupBtn">Signup</div>
             </div>
         </div>
         <div class="right">
-            <img class="hero-img" src="/images/hero.png" />
+            <img class="hero-img" src="/images/hero.webp" />
         </div>
     </div>
 
@@ -22,40 +22,69 @@
         <div class="categories-container">
     <% 
     var cards = [
-        {categoryImg: '/images/appliances.png',categoryName: 'Electronics' },
-        {categoryImg: '/images/appliances.png',categoryName: 'appliances'},
-        {categoryImg: '/images/appliances.png',categoryName: 'appliances'},
-        {categoryImg: '/images/appliances.png',categoryName: 'appliances'},
+        {categoryImg: '/images/categories/appliances.webp',categoryName: 'Electronics' },
+        {categoryImg: '/images/categories/appliances.webp',categoryName: 'Electronics' },
+        {categoryImg: '/images/categories/appliances.webp',categoryName: 'Electronics' },
+        {categoryImg: '/images/categories/appliances.webp',categoryName: 'Electronics' },
+        {categoryImg: '/images/categories/appliances.webp',categoryName: 'Electronics' },
+        {categoryImg: '/images/categories/appliances.webp',categoryName: 'Electronics' },
+        {categoryImg: '/images/categories/appliances.webp',categoryName: 'Electronics' },
+        {categoryImg: '/images/categories/appliances.webp',categoryName: 'Electronics' },
+        {categoryImg: '/images/categories/appliances.webp',categoryName: 'Electronics' },
+        {categoryImg: '/images/categories/appliances.webp',categoryName: 'Electronics' },
+        {categoryImg: '/images/categories/appliances.webp',categoryName: 'Electronics' },
+        {categoryImg: '/images/categories/appliances.webp',categoryName: 'Electronics' },
+        {categoryImg: '/images/categories/appliances.webp',categoryName: 'Electronics' },
     ]; 
     %>
 
 
-    <% for (var i = 0; i < cards.length; i++) { %>
-        <%- include('../partials/categoryCard.ejs', cards[i]) %>
-    <% } %>
+    <div class="scroller scroller-left"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
+        <div class="scrollable-content">
+            <% for (var i = 0; i < cards.length; i++) { %>
+                <%- include('../partials/categoryCard.ejs', cards[i]) %>
+            <% } %>
+        </div>
+    <div class="scroller scroller-right"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
 </div>
     </div>
     <%products=[
-        {productImg: '/images/products/3876378udhb89wo8u/1.jpg', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
-        {productImg: '/images/products/3876378udhb89wo8u/1.jpg', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
-        {productImg: '/images/products/3876378udhb89wo8u/1.jpg', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
-        {productImg: '/images/products/3876378udhb89wo8u/1.jpg', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/1.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
     ]; %>
     <%-include('../partials/productsList.ejs', {listTitle: 'Featured Products', products: products}) %>
     
     <%products=[
-        {productImg: '/images/products/3876378udhb89wo8u/2.jpg', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
-        {productImg: '/images/products/3876378udhb89wo8u/2.jpg', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
-        {productImg: '/images/products/3876378udhb89wo8u/2.jpg', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
-        {productImg: '/images/products/3876378udhb89wo8u/2.jpg', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/2.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/2.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/2.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/2.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
     ]; %>
     <%-include('../partials/productsList.ejs', {listTitle: 'New Arrival', products: products}) %>
     
     <%products=[
-        {productImg: '/images/products/3876378udhb89wo8u/3.jpg', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
-        {productImg: '/images/products/3876378udhb89wo8u/3.jpg', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
-        {productImg: '/images/products/3876378udhb89wo8u/3.jpg', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
-        {productImg: '/images/products/3876378udhb89wo8u/3.jpg', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/3.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/3.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/3.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
+        {productImg: '/images/products/3876378udhb89wo8u/3.webp', productTitle: 'Poco F3 GT (8GB+128GB) Gunmetal Silver, VoLTE Black, 5G', productDescription: '₹5,399', productPrice: '₹8,999', productDiscount: '40% off'},
     ]; %>
     <%-include('../partials/productsList.ejs', {listTitle: 'For You', products: products}) %>
 

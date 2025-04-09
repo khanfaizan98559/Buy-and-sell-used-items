@@ -1,8 +1,12 @@
 <div class="products-list">
     <h2 class="products-title"><%=listTitle%></h2>
     <div class="products-container">
-        <% for (var i = 0; i < products.length; i++) { %>
-            <%- include('../partials/productCard.ejs', products[i]) %>
-        <% } %>
+        <div class="scroller scroller-left"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
+        <div class="scrollable-content">
+            <% for (var i = 0; i < products.length; i++) { %>
+                <%- include('../partials/productCard.ejs', products[i]) %>
+            <% } %>
+        </div>
+        <div class="scroller scroller-right"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
     </div>
 </div>

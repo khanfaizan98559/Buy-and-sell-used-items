@@ -1,0 +1,13 @@
+<div class="navbar-searchbar-container">
+    <form class="navbar-searchbar" action="/search" method="GET" autocomplete="off">  
+          <input type="text" id="searchInput" placeholder="Search for products..." accesskey="/"/>
+          <button class="search-btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+    </form>
+    
+    <div class="search-suggestions-popup">
+        <%for(let i = 0; i < 50; i++) { %>
+            <div class="search-suggestion-item">Suggestion <%= i + 1 %></div>
+        <% } %>
+    </div>
+
+</div>

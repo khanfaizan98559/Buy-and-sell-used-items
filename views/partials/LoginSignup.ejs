@@ -1,0 +1,22 @@
+<div class="login-popup user-popup">
+    <h2>Login</h2>
+    <form action="/login" method="post">
+        <input type="email" name="loginEmail" id="loginEmail" placeholder="Email" required />
+        <input type="password" name="loginPassword" id="loginPassword" placeholder="Password" required />
+        <p>Don't have an account? <a class="signupBtn" style="color: blue;">Sign up</a></p>
+        <button class="userBtn" type="submit">Login</button>
+    </form>
+</div>
+
+<div class="signup-popup user-popup">
+    <h2>Signup</h2>
+    <form action="/signup" method="post">
+        <input type="text" name="userName" id="userName" placeholder="Name" required />
+        <input type="number" name="signupPhoneNo" id="signupPhoneNo" placeholder="Phone Number" required />
+        <input type="email" name="signupEmailId" id="signupEmailId" placeholder="Email" required />
+        <input type="password" name="signupPassword" id="signupPassword" placeholder="Password" required />
+        <input type="password" name="signupConfirmPasaword" id="signupConfirmPasaword" placeholder="Confirm Password" required />
+        <p>Already have an account? <a class="loginBtn" style="color: blue;">Login</a></p>
+        <button class="userBtn" type="submit">Sign up</button>
+    </form>
+</div>

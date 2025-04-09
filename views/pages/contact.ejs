@@ -4,7 +4,11 @@
 <body>
     <div class="contact-container">
         <div class="contact-image">
-            <img src="/images/contact.png" alt="Contact Us">
+            <picture>
+                <source srcset="/images/contact.avif" type="image/avif" media="(min-width: 1024px)">
+                <source srcset="/images/contact.webp" type="image/webp" media="(min-width: 1024px)">
+                <img src="/images/contact.png" loading="lazy" alt="Contact Us">
+            </picture>
         </div>
         <form action="/contact" method="POST">
             <label for="name">Name:</label>

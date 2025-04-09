@@ -2,7 +2,11 @@
     <div class="footer-container">
         <div class="left">
             <div class="left-content">
-                <img  class="footer-logo" src="/images/logo.png" alt="logo">
+                <picture>
+                    <source srcset="/images/logo.avif" type="image/avif" media="(min-width: 1024px)">
+                    <source srcset="/images/logo.webp" type="image/webp" media="(min-width: 1024px)">
+                    <img  class="footer-logo" loading="lazy" src="/images/logo.png" alt="logo" media="(min-width: 1024px)">
+                </picture>
                 <p>Every item has Story;
                     Let It begin anew.
                 </p>
@@ -25,11 +29,12 @@
                 <p class="footer-description">Follow us on social media</p>
             </div>
 
-            <div class="social-container">
-                <a href="https://www.facebook.com" target="_blank"><img class="social-icon" src="/images/facebook.png" alt="Facebook"></a>
-                <a href="https://www.instagram.com" target="_blank"><img class="social-icon" src="/images/instagram.png" alt="Instagram"></a>
-                <a href="https://www.twitter.com" target="_blank"><img class="social-icon" src="/images/twitter.png" alt="Twitter"></a>
-                <a href="https://www.linkedin.com" target="_blank"><img class="social-icon" src="/images/linkedin.png" alt="LinkedIn"></a>
+            <div class="footer-social-container">
+                <a href="#" target="_blank" class="footer-social-icon"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" target="_blank" class="footer-social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" target="_blank" class="footer-social-icon"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" target="_blank" class="footer-social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" target="_blank" class="footer-social-icon"><i class="fa-brands fa-twitter"></i></a>
             </div>
         </div>
     </div>
