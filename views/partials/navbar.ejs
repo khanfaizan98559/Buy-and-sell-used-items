@@ -6,8 +6,15 @@
     </a>
 
     <%-include('./searchbar.ejs')%>
+    <div class="hamburger-menu">
+      <div class="wrapper-menu">
+        <div class="line-menu half start"></div>
+        <div class="line-menu"></div>
+        <div class="line-menu half end"></div>
+      </div>
+    </div>
     <div class="navbar-links">
-      <a class="nav-link-item active" href="/home">HOME</a>
+      <a class="nav-link-item active" href="/">HOME</a>
       <a class="nav-link-item" href="/about">ABOUT US</a>
       <a class="nav-link-item" href="/contact">CONTACT US</a>
       <a class="nav-link-item" href="/faq">FAQ</a>
@@ -15,3 +22,13 @@
       <div class="nav-link-item navbar-sellBtn" href="/sell">SELL</div>
     </div>
 </nav>
+
+<script>
+  var wrapperMenu = document.querySelector('.wrapper-menu');
+  var hamburgerMenu = document.querySelector('.hamburger-menu');
+
+wrapperMenu.addEventListener('click', function(){
+  wrapperMenu.classList.toggle('open');  
+  hamburgerMenu.classList.toggle('open')
+})
+</script>

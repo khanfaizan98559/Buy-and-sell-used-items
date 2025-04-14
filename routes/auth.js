@@ -2,15 +2,16 @@ const express = require('express');
 const passport = require('passport');
 const User = require('../models/User');
 const { registerValidation } = require('../utils/validation');
+const {saveRedirectUrl}=require("../middleware.js")
 const router = express.Router();
 
 // Login route
 router
 .route('/login')
 .post(
+  saveRedirectUrl,
   passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/login',
     failureFlash: true,
   })
 );

@@ -1,26 +1,144 @@
-<%layout('layouts/boilerplate.ejs') -%>
+<%-layout('layouts/boilerplate.ejs') -%>
 
+<style>
+/* General Styling */
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: #ffffff; /* Set background to white */
+}
+
+.contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.contact-image img {
+    max-width: 100%;
+    border-radius: 10px; /* Slightly rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.3s ease-in-out;
+}
+
+.contact-image img:hover {
+    transform: scale(1.05);
+}
+
+.contact-form {
+    background: linear-gradient(111.27deg, rgba(38, 31, 179, 1) 0%, rgba(11, 15, 82, 1) 32.79275596141815%, rgba(19, 24, 133, 1) 65.5855119228363%);
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%;
+    max-width: 500px;
+    color: #fff; /* White text for contrast */
+}
+
+.contact-form h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    color: #fff; /* White text */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #fff; /* White text */
+    font-size: 14px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    background: #f9f9f9; /* Light background for inputs */
+    font-size: 16px;
+    color: #333;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 15px;
+    background: #fff; /* White button */
+    border: none;
+    border-radius: 5px;
+    color: #05386e; /* Blue text for contrast */
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.contact-form button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.contact-form button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .contact-image img {
+        max-width: 90%;
+    }
+
+    .contact-form {
+        padding: 30px;
+    }
+}
+</style>
 
 <body>
-    <div class="contact-container">
-        <div class="contact-image">
-            <picture>
-                <source srcset="/images/contact.avif" type="image/avif" media="(min-width: 1024px)">
-                <source srcset="/images/contact.webp" type="image/webp" media="(min-width: 1024px)">
-                <img src="/images/contact.png" loading="lazy" alt="Contact Us">
-            </picture>
+    <div class="main-container">
+        <div class="contact-container">
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h1>Contact Us</h1>
+                <form action="/contact" method="POST">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" placeholder="Write your message here..." rows="5" required></textarea>
+
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
         </div>
-        <form action="/contact" method="POST">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
-
-            <button type="submit">Send</button>
-        </form>
     </div>
 </body>
