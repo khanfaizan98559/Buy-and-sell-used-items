@@ -7,6 +7,28 @@ const userSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  profilePicture: { type: String }, // URL for the profile picture
+  sellingProducts: [
+    { type: mongoose.Schema.Types.ObjectId, ref: 'Product' } // Products the user is selling
+  ],
+  buyingProducts: [
+    { type: mongoose.Schema.Types.ObjectId, ref: 'Product' } // Products the user is buying
+  ],
+  dateOfBirth: { type: Date },
+  chats:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Chat'
+  }],
+  addresses:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Address'
+  }],
+  logs:[
+    {
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'Log'
+    }
+  ]
 });
 
 userSchema.pre('save', async function (next) {

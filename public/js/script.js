@@ -1,6 +1,6 @@
 //navbar links
 
-let navbarLinks = document.querySelectorAll("nav-link-item");
+let navbarLinks = document.querySelectorAll("nav-link-item:not(.navbar-sellBtn)");
 let activeNavbarLink = document.querySelector("a.nav-link-item.active");
 
 for(let navbarLink of navbarLinks) {

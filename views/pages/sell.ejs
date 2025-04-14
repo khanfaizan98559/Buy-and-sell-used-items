@@ -1,0 +1,729 @@
+<%-layout("/layouts/boilerplate.ejs")%>
+
+<body>
+  <!-- Sell Product Section -->
+  <section class="sell-product-section">
+    <div class="seller-header">
+      <h1>Sell Your Products With Us</h1>
+      <p class="subtitle">Reach thousands of potential buyers with our marketplace</p>
+      <div class="progress-steps">
+        <div class="step active">1. Product Details</div>
+        <div class="step">2. Pricing</div>
+        <div class="step">3. Confirm Address</div>
+        <div class="step">4. Review</div>
+      </div>
+    </div>
+
+    <!-- Product Form -->
+    <form action="/sell" method="POST" enctype="multipart/form-data" class="sell-form">
+      <div class="form-columns">
+        <div class="form-left">
+          <!-- Product Name -->
+          <div class="form-group">
+            <label for="product-name">Product Title*</label>
+            <input type="text" id="product-name" name="productName" placeholder="e.g., Apple MacBook Pro 14-inch M1 Pro Chip" required />
+            <p class="hint">Be specific and include key details</p>
+          </div>
+
+          <!-- Product Category -->
+          <div class="form-group">
+            <label for="product-category">Category*</label>
+            <select id="product-category" name="productCategory" required>
+              <option value="">Select a category</option>
+              <option value="electronics">Electronics</option>
+              <option value="fashion">Fashion</option>
+              <option value="home">Home & Garden</option>
+              <option value="sports">Sports & Outdoors</option>
+              <option value="vehicles">Vehicles</option>
+              <option value="collectibles">Collectibles</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <!-- Product Condition -->
+          <div class="form-group">
+            <label>Condition*</label>
+            <div class="condition-options">
+              <label class="condition-option">
+                <input type="radio" name="condition" value="new" checked required>
+                <span>New</span>
+              </label>
+              <label class="condition-option">
+                <input type="radio" name="condition" value="used" required>
+                <span>Used - Like New</span>
+              </label>
+              <label class="condition-option">
+                <input type="radio" name="condition" value="good" required>
+                <span>Used - Good</span>
+              </label>
+              <label class="condition-option">
+                <input type="radio" name="condition" value="fair" required>
+                <span>Used - Fair</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Product Description -->
+          <div class="form-group">
+            <label for="product-description">Detailed Description*</label>
+            <textarea id="product-description" name="productDescription" placeholder="Include all relevant details about your product..." rows="6" required></textarea>
+            <p class="hint">Mention features, specifications, dimensions, and any flaws</p>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="form-right">
+          <!-- Product Images -->
+          <div class="form-group">
+            <label>Product Images* (Up to 10)</label>
+            <div class="image-upload-container">
+              <div class="upload-area" id="drop-area">
+                <div class="upload-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                </div>
+                <p class="upload-text">Drag & drop images here or click to browse</p>
+                <input type="file" id="product-images" name="productImages" multiple accept="image/*" hidden />
+                <button type="button" class="browse-btn">Select Images</button>
+              </div>
+              <div class="preview-container" id="preview-container">
+                <!-- Preview images will appear here -->
+              </div>
+            </div>
+            <p class="hint">First image will be used as the cover photo</p>
+          </div>
+
+          <!-- Product Features -->
+          <div class="form-group">
+            <label for="feature-options">Product Features</label>
+            <div id="feature-options-container">
+              <div class="feature-option">
+                <select name="featureType[]" class="feature-type">
+                  <option value="color">Color</option>
+                  <option value="brand">Brand</option>
+                  <option value="material">Material</option>
+                  <option value="size">Size</option>
+                  <option value="weight">Weight</option>
+                  <option value="freeShipping">Free Shipping</option>
+                  <option value="localPickup">Local Pickup</option>
+                  <option value="other">Other</option>
+                </select>
+                <input type="text" name="featureValue[]" placeholder="Enter value (e.g., Red, Nike, Cotton)" />
+              </div>
+            </div>
+            <button type="button" id="add-feature-btn" class="add-more-btn">Add More Features</button>
+          </div>
+
+          <!-- Address Confirmation -->
+          
+        </div>
+      </div>
+
+      <!-- Form Footer -->
+      <div class="form-footer">
+        <button type="submit" class="submit-btn">
+          <span>Continue</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </button>
+        <p class="terms">By listing your item, you agree to our <a href="#">Seller Terms</a> and <a href="#">Privacy Policy</a></p>
+      </div>
+    </form>
+  </section>
+
+  <style>
+    :root {
+      --primary-color: #4f46e5;
+      --primary-hover: #4338ca;
+      --secondary-color: #f3f4f6;
+      --text-color: #374151;
+      --light-text: #6b7280;
+      --border-color: #d1d5db;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --error-color: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #f9fafb;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .sell-product-section {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 40px;
+      background-color: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    .seller-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .seller-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #4f46e5, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--light-text);
+      margin-bottom: 30px;
+    }
+
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .step {
+      padding: 8px 15px;
+      border-radius: 20px;
+      background-color: var(--secondary-color);
+      color: var(--light-text);
+      font-weight: 500;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      flex: 1;
+      margin: 0 2px;
+      justify-content: center;
+      align-self: center;
+    }
+
+    .step.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .sell-form {
+      margin-top: 30px;
+    }
+
+    .form-columns {
+      display: flex;
+      gap: 30px;
+    }
+
+    .form-left {
+      flex: 1;
+    }
+
+    .form-right {
+      flex: 1;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-color);
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1rem;
+      color: var(--text-color);
+      transition: all 0.2s ease;
+    }
+
+    .form-group select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 1em;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    }
+
+    .hint {
+      font-size: 0.85rem;
+      color: var(--light-text);
+      margin-top: 5px;
+    }
+
+    /* Condition Options */
+    .condition-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .condition-option {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .condition-option input {
+      margin-right: 8px;
+    }
+
+    .condition-option:hover {
+      border-color: var(--primary-color);
+    }
+
+    /* Image Upload */
+    .image-upload-container {
+      margin-top: 10px;
+    }
+
+    .upload-area {
+      border: 2px dashed var(--border-color);
+      border-radius: 8px;
+      padding: 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .upload-area:hover {
+      border-color: var(--primary-color);
+    }
+
+    .upload-area.highlight {
+      border-color: var(--primary-color);
+      background-color: rgba(79, 70, 229, 0.05);
+    }
+
+    .upload-icon {
+      margin-bottom: 15px;
+    }
+
+    .upload-text {
+      font-size: 1rem;
+      color: var(--light-text);
+      margin-bottom: 15px;
+    }
+
+    .browse-btn {
+      padding: 8px 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .browse-btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* Preview Container */
+    .preview-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .preview-item {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .preview-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .preview-item .remove-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 20px;
+      height: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 10px;
+    }
+
+    /* Shipping Options */
+    .shipping-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .shipping-option {
+      display: flex;
+      align-items: center;
+    }
+
+    .shipping-option input {
+      margin-right: 10px;
+    }
+
+    /* Form Footer */
+    .form-footer {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .submit-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 30px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+    }
+
+    .submit-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(79, 70, 229, 0.3);
+    }
+
+    .submit-btn svg {
+      margin-left: 8px;
+    }
+
+    .terms {
+      font-size: 0.85rem;
+      color: var(--light-text);
+      margin-top: 15px;
+    }
+
+    .terms a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .terms a:hover {
+      text-decoration: underline;
+    }
+
+    /* Add More Button */
+    .add-more-btn {
+      margin-top: 10px;
+      padding: 8px 15px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .add-more-btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .form-group input {
+      margin-bottom: 10px;
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+    }
+
+    /* Product Features */
+    .feature-option {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .feature-option select,
+    .feature-option input {
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 1rem;
+      flex: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .form-columns {
+        flex-direction: column;
+      }
+
+      .sell-product-section {
+        padding: 25px;
+      }
+
+      .seller-header h1 {
+        font-size: 2rem;
+      }
+
+      .progress-steps {
+        flex-wrap: wrap;
+      }
+      
+      .step {
+        flex: 0 0 48%;
+        margin-bottom: 5px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .step {
+        font-size: 0.7rem;
+        padding: 6px 8px;
+      }
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const dropArea = document.getElementById('drop-area');
+      const fileInput = document.getElementById('product-images');
+      const previewContainer = document.getElementById('preview-container');
+      const browseBtn = document.querySelector('.browse-btn');
+      const maxFiles = 10;
+      
+      // Prevent default drag behaviors
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false);
+      });
+      
+      // Highlight drop area when item is dragged over it
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false);
+      });
+      
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+      });
+      
+      // Handle dropped files
+      dropArea.addEventListener('drop', handleDrop, false);
+      
+      // Handle click on browse button
+      browseBtn.addEventListener('click', () => {
+        fileInput.click();
+      });
+      
+      // Handle file selection
+      fileInput.addEventListener('change', handleFiles, false);
+      
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      
+      function highlight() {
+        dropArea.classList.add('highlight');
+      }
+      
+      function unhighlight() {
+        dropArea.classList.remove('highlight');
+      }
+      
+      function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFiles({ target: { files } });
+      }
+      
+      function handleFiles(e) {
+        const files = e.target.files;
+        
+        if (files.length + previewContainer.children.length > maxFiles) {
+          alert(`You can upload a maximum of ${maxFiles} images.`);
+          return;
+        }
+        
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          
+          if (!file.type.match('image.*')) {
+            continue;
+          }
+          
+          const reader = new FileReader();
+          
+          reader.onload = function(e) {
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-btn';
+            removeBtn.innerHTML = '&times;';
+            removeBtn.addEventListener('click', () => {
+              previewItem.remove();
+              updateFileInput();
+            });
+            
+            previewItem.appendChild(img);
+            previewItem.appendChild(removeBtn);
+            previewContainer.appendChild(previewItem);
+            
+            updateFileInput();
+          };
+          
+          reader.readAsDataURL(file);
+        }
+      }
+      
+      function updateFileInput() {
+        // This is a simplified approach - in a real app you might need to handle
+        // the file list more carefully, possibly using FormData
+      }
+      
+      // Price suggestion buttons
+      const suggestionBtns = document.querySelectorAll('.suggestion-btn');
+      const priceInput = document.getElementById('product-price');
+      
+      suggestionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const price = btn.textContent.replace(/[^0-9]/g, '');
+          priceInput.value = price;
+        });
+      });
+
+      // Add More Colors
+      const colorContainer = document.getElementById('color-options-container');
+      const addColorBtn = document.getElementById('add-color-btn');
+      addColorBtn.addEventListener('click', () => {
+        const newColorInput = document.createElement('div');
+        newColorInput.className = 'color-option';
+        newColorInput.innerHTML = `<input type="text" name="productColors[]" placeholder="e.g., Blue" />`;
+        colorContainer.appendChild(newColorInput);
+      });
+
+      // Add More Sizes
+      const sizeContainer = document.getElementById('size-options-container');
+      const addSizeBtn = document.getElementById('add-size-btn');
+      addSizeBtn.addEventListener('click', () => {
+        const newSizeInput = document.createElement('div');
+        newSizeInput.className = 'size-option';
+        newSizeInput.innerHTML = `<input type="text" name="productSizes[]" placeholder="e.g., Medium" />`;
+        sizeContainer.appendChild(newSizeInput);
+      });
+
+      // Add More Custom Features
+      const customContainer = document.getElementById('custom-options-container');
+      const addCustomBtn = document.getElementById('add-custom-btn');
+      addCustomBtn.addEventListener('click', () => {
+        const newCustomInput = document.createElement('div');
+        newCustomInput.className = 'custom-option';
+        newCustomInput.innerHTML = `<input type="text" name="customFeatures[]" placeholder="e.g., Waterproof" />`;
+        customContainer.appendChild(newCustomInput);
+      });
+
+      // Add More Product Features
+      const featureContainer = document.getElementById('feature-options-container');
+      const addFeatureBtn = document.getElementById('add-feature-btn');
+
+      addFeatureBtn.addEventListener('click', () => {
+        const newFeatureOption = document.createElement('div');
+        newFeatureOption.className = 'feature-option';
+        newFeatureOption.innerHTML = `
+          <select name="featureType[]" class="feature-type">
+            <option value="color">Color</option>
+            <option value="brand">Brand</option>
+            <option value="material">Material</option>
+            <option value="size">Size</option>
+            <option value="weight">Weight</option>
+            <option value="freeShipping">Free Shipping</option>
+            <option value="localPickup">Local Pickup</option>
+            <option value="other">Other</option>
+          </select>
+          <input type="text" name="featureValue[]" placeholder="Enter value (e.g., Red, Nike, Cotton)" />
+        `;
+        featureContainer.appendChild(newFeatureOption);
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const featureContainer = document.getElementById('feature-options-container');
+      const addFeatureBtn = document.getElementById('add-feature-btn');
+
+      // Add event listener to the "Add More Features" button
+      addFeatureBtn.addEventListener('click', () => {
+        // Create a new feature option container
+        const newFeatureOption = document.createElement('div');
+        newFeatureOption.className = 'feature-option';
+        newFeatureOption.innerHTML = `
+          <select name="featureType[]" class="feature-type">
+            <option value="color">Color</option>
+            <option value="brand">Brand</option>
+            <option value="material">Material</option>
+            <option value="size">Size</option>
+            <option value="weight">Weight</option>
+            <option value="freeShipping">Free Shipping</option>
+            <option value="localPickup">Local Pickup</option>
+            <option value="other">Other</option>
+          </select>
+          <input type="text" name="featureValue[]" placeholder="Enter value (e.g., Red, Nike, Cotton)" />
+        `;
+        // Append the new feature option to the container
+        featureContainer.appendChild(newFeatureOption);
+      });
+    });
+  </script>
+</body>
+</html>

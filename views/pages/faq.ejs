@@ -1,0 +1,140 @@
+<%- layout("/layouts/boilerplate.ejs") %>
+
+<body>
+  <section class="faq-section">
+    <div class="faq-header">
+      <h1>Frequently Asked Questions</h1>
+      <p class="subtitle">Find answers to the most common questions</p>
+    </div>
+
+    <div class="faq-container">
+      <!-- FAQ Item 1 -->
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>What is this platform about?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>This platform is a marketplace where you can buy and sell products easily and securely.</p>
+        </div>
+      </div>
+
+      <!-- FAQ Item 2 -->
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>How do I create an account?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Click on the signup button, fill in your details, and submit the form to create an account.</p>
+        </div>
+      </div>
+
+      <!-- FAQ Item 3 -->
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Is there a fee for selling products?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>No, listing your products is completely free. However, we may charge a small commission on successful sales.</p>
+        </div>
+      </div>
+
+      <!-- FAQ Item 4 -->
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>How do I contact customer support?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>You can contact our support team via the contact page or email us at support@example.com.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* FAQ Section Styles */
+    .faq-section {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .faq-header h1 {
+      font-size: 2rem;
+      color: var(--primary-color);
+    }
+
+    .faq-header .subtitle {
+      font-size: 1rem;
+      color: var(--light-text);
+    }
+
+    .faq-container {
+      margin-top: 20px;
+    }
+
+    .faq-item {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: var(--primary-color);
+      color: black;
+      cursor: pointer;
+    }
+
+    .faq-question h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .faq-toggle {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 15px 20px;
+      background-color: var(--light-bg);
+      color: var(--text-color);
+      font-size: 0.95rem;
+    }
+
+    .faq-answer p {
+      margin: 0;
+    }
+  </style>
+
+  <script>
+    // Toggle FAQ Answer Visibility
+    function toggleFaq(element) {
+      const answer = element.nextElementSibling;
+      const toggle = element.querySelector('.faq-toggle');
+
+      if (answer.style.display === 'block') {
+        answer.style.display = 'none';
+        toggle.textContent = '+';
+      } else {
+        answer.style.display = 'block';
+        toggle.textContent = '-';
+      }
+    }
+  </script>
+</body>

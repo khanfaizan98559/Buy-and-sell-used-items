@@ -18,6 +18,10 @@ dotenv.config();
 // Import routes
 const indexRoutes = require('./routes/index');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
+const productRoutes = require('./routes/product');
+const chatRoutes = require('./routes/chat');
+const logRoutes = require('./routes/log');
 
 const app = express();
 
@@ -32,6 +36,7 @@ initializePassport(passport);
 
 // Middleware
 app.use(express.static('public'));
+app.use('/uploads', express.static('uploads'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
@@ -70,7 +75,11 @@ app.use(passport.session());
 // Use routes
 app.use('/', indexRoutes);
 app.use('/', authRoutes);
+app.use('/users', userRoutes);
+app.use('/products', productRoutes);
+app.use('/chats', chatRoutes);
+app.use('/logs', logRoutes);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
-}); 
+});

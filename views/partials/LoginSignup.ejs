@@ -10,13 +10,42 @@
 
 <div class="signup-popup user-popup">
     <h2>Signup</h2>
-    <form action="/signup" method="post">
+    <form action="/signup" method="post" enctype="multipart/form-data">
+        <!-- Profile Picture Upload -->
+        <label for="profilePicture" class="profile-picture-label">
+            <div id="profilePictureDiv" class="profile-picture-div">
+                <div class="profile-picture-text">Upload</div>
+                <img id="imagePreview" src="/images/default-avatar.png" alt="Image Preview" />
+            </div>
+        </label>
+        <input type="file" name="profilePicture" id="profilePicture" accept="image/*" onchange="previewImage(event)" style="display: none;" />
         <input type="text" name="userName" id="userName" placeholder="Name" required />
         <input type="number" name="signupPhoneNo" id="signupPhoneNo" placeholder="Phone Number" required />
         <input type="email" name="signupEmailId" id="signupEmailId" placeholder="Email" required />
         <input type="password" name="signupPassword" id="signupPassword" placeholder="Password" required />
         <input type="password" name="signupConfirmPasaword" id="signupConfirmPasaword" placeholder="Confirm Password" required />
+        
+        
+        
         <p>Already have an account? <a class="loginBtn" style="color: blue;">Login</a></p>
         <button class="userBtn" type="submit">Sign up</button>
     </form>
 </div>
+
+<script>
+    // JavaScript to preview the uploaded image
+    function previewImage(event) {
+        const imagePreview = document.getElementById('imagePreview');
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.src = '/default-avatar.png'; // Default avatar if no file is selected
+        }
+    }
+</script>
