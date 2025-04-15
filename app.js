@@ -8,7 +8,7 @@ const passport = require('passport');
 const session = require('express-session');
 const dotenv = require('dotenv');
 const initializePassport = require('./middleware/passport-config');
-const User = require('./models/User'); // Import the user model
+const User = require('./models/user'); // Import the user model
 const flash = require('connect-flash'); // Import flash
 
 // Load environment variables
