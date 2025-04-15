@@ -16,12 +16,7 @@ module.exports.renderSellPage=async (req, res) => {
 
 module.exports.listProduct = async(req, res) => {
   let currUser;
-  if(req.user){
-     currUser=req.user
-  }else{
-    currUser=await User.findById("67fde0462aa2967a16601794")
-    console.log(currUser)
-  }
+  currUser=req.user
 
   let {details, pricing, address} = req.body;
   
@@ -31,7 +26,6 @@ module.exports.listProduct = async(req, res) => {
       description:details.description,
       category:details.category,
       condition:details.condition,
-      description:details.description,
       features:details.features,
     },
     pricing:pricing,
@@ -77,32 +71,29 @@ module.exports.listProduct = async(req, res) => {
 
   newProduct.images = [];
 
-if (req.files && req.files.images && Array.isArray(req.files.images)) {
-  for (const file of req.files.images) {
-    const imageUrl = await new Promise((resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream(
-        {
-          folder: `/SwapNest/products/${newProduct._id}`,
-        },
-        (error, result) => {
-          if (error) {
-            console.error('Cloudinary upload error:', error);
-            return reject(error);
+  if (req.files && req.files.images && Array.isArray(req.files.images)) {
+    for (const file of req.files.images) {
+      const imageUrl = await new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { folder: `/SwapNest/products/${newProduct._id}` },
+          (error, result) => {
+            if (error) {
+              console.error('Cloudinary upload error:', error);
+              return reject(error);
+            }
+            resolve(result.secure_url);
           }
-          resolve(result.secure_url);
-        }
-      );
-      uploadStream.end(file.buffer); // Stream the buffer
-    });
+        );
+        uploadStream.end(file.buffer); // Stream the buffer
+      });
 
-    newProduct.images.push(imageUrl);
+      newProduct.images.push(imageUrl);
+    }
   }
-}
 
-  
   await newProduct.save();
   currUser.sellingProducts.push(newProduct)
-  currUser.save()
+  await currUser.save()
 
   res.redirect('/');
 };
