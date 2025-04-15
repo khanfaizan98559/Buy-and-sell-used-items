@@ -7,15 +7,13 @@
     <section class="product-section">
       <!-- Sidebar Thumbnails -->
       <div class="sidebar-thumbnails">
-        <img src="/images/products/3876378udhb89wo8u/1.webp" />
-        <img src="/images/products/3876378udhb89wo8u/2.webp" />
-        <img src="/images/products/3876378udhb89wo8u/3.webp" />
-        <img src="/images/products/3876378udhb89wo8u/4.webp" />
-        <img src="/images/products/3876378udhb89wo8u/5.webp" />
+        <%for(image of product.images){%>
+          <img src="<%=image%>" />
+        <%}%>
       </div>
       <!-- Main Image -->
       <div class="main-image">
-        <img src="/images/products/3876378udhb89wo8u/1.webp" />
+        <img src="<%=product.images[0]%>" />
         <div>
           <button class="button-primary">Make Deal</button>
           <button class="button-secondary">Chat With Seller</button>
@@ -28,9 +26,9 @@
         <p>Brand: <span style="color: #1d4ed8;">Logitech</span></p>
         </div>
         <div class="product-price">
-          <span class="line-through">MRP: ₹1543</span>
-          <span class="deal-price">Deal Price: ₹541.61</span>
-          <span class="savings">You save: ₹1001.39</span>
+          <span class="line-through">MRP: <%=product.pricing.basePrice%></span>
+          <span class="deal-price">Deal Price: <%=product.pricing.discountPrice%></span>
+          <span class="savings">You save: <%=product.pricing.basePrice-product.pricing.discountPrice%></span>
         </div>
         <div class="product-features">
           <div><i class="fa-solid fa-rotate"></i>7 Days Replacement</div>
@@ -41,11 +39,10 @@
         </div>
         <div class="product-about">
           <h3>About This Item</h3>
-          <ul> 
-            <li>You can surf the Web with more comfort and ease—thanks to the contoured design with soft rubber grips. And your mouse is easy to slip into a bag when you want to take it with you.</li>
-            <li>You’ll enjoy smooth cursor control, precise tracking and easy text selection on the surfaces where you use your computer most.</li>
-            <li>You can go a full year without battery hassles. The On/Off switch helps conserve power, smart sleep mode extends battery life and an indicator light eliminates surprises.</li>
-            <li>You get a mouse you can count on with the high quality and reliability that have made Logitech the global leader for mice—plus a three-year limited hardware warranty.</li>
+          <ul>
+            <%for(let description of product.details.description){%>
+            <li><%=description%></li>
+            <%}%>
           </ul>
         </div>
         <table>
