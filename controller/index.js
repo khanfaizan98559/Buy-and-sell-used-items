@@ -1,11 +1,11 @@
-const validate = require('../middleware/validate');
-const {  cloudinary,storage } = require('../middleware/cloudConfig'); // Import multer and cloudinary
+const validate = require('../middleware/validate.js');
+const {  cloudinary,storage } = require('../middleware/cloudConfig.js'); // Import multer and cloudinary
 const multer = require('multer'); // Import multer for file uploads
 const upload = multer({ storage });
-const Product = require('../models/Product'); // Import the Product model
+const Product = require('../models/Product.js'); // Import the Product model
 const User  = require('../models/user.js'); // Import the User model
-const Category = require('../models/Category'); // Import the Category model
-const Address=require("../models/Address")
+const Category = require('../models/Category.js'); // Import the Category model
+const Address=require("../models/Address.js")
 const productController=require("./product.js")
 
 module.exports.renderSellPage=async (req, res) => {
