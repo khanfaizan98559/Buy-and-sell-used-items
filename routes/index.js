@@ -32,8 +32,10 @@ router
 
 
 // Product page route
-router.get('/product', (req, res) => {
-  res.render('pages/product');
+router.get('/product/:id', (req, res) => {
+  const id = req.params.id;
+  const product = productController.getProductById(id);
+  res.render('pages/product',{product});
 });
 
 // Contact page route

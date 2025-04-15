@@ -24,6 +24,9 @@ const logRoutes = require('./routes/log');
 
 const app = express();
 
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URL)
@@ -34,7 +37,6 @@ mongoose
 initializePassport(passport);
 
 // Middleware
-app.use(express.static('public'));
 app.use('/uploads', express.static('uploads'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
