@@ -5,7 +5,7 @@ const router = express.Router();
 const {  cloudinary,storage } = require('../middleware/cloudConfig'); // Import multer and cloudinary
 const multer = require('multer'); // Import multer for file uploads
 const upload = multer({ storage });
-const User = require('../models/user'); // Import User model
+const User = require('../models/user.js'); // Import User model
 const {validateUser}=require("../middleware/validate.js")
 
 
