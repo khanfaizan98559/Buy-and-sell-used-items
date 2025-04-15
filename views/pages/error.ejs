@@ -1,0 +1,67 @@
+<%-layout("layouts/boilerplate")%>
+
+<style>
+
+
+  .container {
+      text-align: center;
+      padding: 2rem;
+      max-width: 600px;
+      align-self: center;
+      justify-self: center;
+  }
+
+  .error-code {
+      font-size: 6rem;
+      color: #6c757d;
+      margin-bottom: 1rem;
+  }
+
+  .error-message {
+      font-size: 1.5rem;
+      color: #343a40;
+      margin-bottom: 1rem;
+  }
+
+  .description {
+      color: #6c757d;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+  }
+
+  .home-button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      text-decoration: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+  }
+
+  .home-button:hover {
+      background-color: #0056b3;
+  }
+
+  @media (max-width: 480px) {
+      .error-code {
+          font-size: 4rem;
+      }
+
+      .error-message {
+          font-size: 1.25rem;
+      }
+  }
+</style>
+<body>
+  <div class="container">
+    <div class="error-code">404</div>
+    <h1 class="error-message">Page Not Found</h1>
+    <p class="description">
+      The page you are looking for might have been removed, had its name
+      changed, or is temporarily unavailable.
+    </p>
+    <a href="/" class="home-button">Return to Homepage</a>
+  </div>
+</body>

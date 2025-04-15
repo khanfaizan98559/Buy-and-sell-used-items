@@ -30,9 +30,23 @@ router
 
 // Product page route
 router.get('/product/:id', async (req, res) => {
-  const id = req.params.id;
-  const product = await Product.findById(id)
-  res.render('pages/product',{product});
+    try {
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).render('pages/error', {
+                errorCode: 404,
+                errorMessage: "Product Not Found",
+                description: "The product you are looking for does not exist or has been removed."
+            });
+        }
+        res.render('pages/product', { product });
+    } catch (error) {
+        res.status(500).render('pages/error', {
+            errorCode: 500,
+            errorMessage: "Internal Server Error",
+            description: "An error occurred while fetching the product. Please try again later."
+        });
+    }
 });
 
 // Contact page route
@@ -60,6 +74,10 @@ router.get('/sellerterms', (req, res) => {
 router.get('/privacy', (req, res) => {
   res.render('pages/privacy');
 });
+
+router.get("/error",(req,res)=>{
+  res.render('pages/error');
+})
 
 
 module.exports = router;

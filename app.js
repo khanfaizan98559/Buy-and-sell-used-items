@@ -87,6 +87,25 @@ app.use('/products', productRoutes);
 app.use('/chats', chatRoutes);
 app.use('/logs', logRoutes);
 
+// Handle 404 errors
+app.use((req, res, next) => {
+    res.status(404).render('pages/error', {
+        errorCode: 404,
+        errorMessage: "Page Not Found",
+        description: "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable."
+    });
+});
+
+// Handle other errors
+app.use((err, req, res, next) => {
+    console.error(err.stack); // Log the error for debugging
+    res.status(err.status || 500).render('pages/error', {
+        errorCode: err.status || 500,
+        errorMessage: "Internal Server Error",
+        description: "Something went wrong on our end. Please try again later."
+    });
+});
+
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
