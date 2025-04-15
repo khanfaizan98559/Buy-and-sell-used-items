@@ -7,7 +7,7 @@ const multer = require('multer');
 const upload=multer(productStorage);
 const productController=require("../controller/product.js")
 const Product=require("../models/Product.js")
-
+const Log =require("../models/Log.js")
 
 
 router.get('/', async(req, res) => {
@@ -39,6 +39,17 @@ router.get('/product/:id', async (req, res) => {
                 description: "The product you are looking for does not exist or has been removed."
             });
         }
+        // if(req.user){
+        //   const newLog = new Log({
+        //     userId: req.user,
+        //     actionType: "PRODUCT_VISIT",
+        //     details: product.details.title,
+        //   });
+        //   await newLog.save();
+        //   await req.user.logs.append(newLog);
+        //   await req.user.save();
+        // }
+          
         res.render('pages/product', { product });
     } catch (error) {
         res.status(500).render('pages/error', {

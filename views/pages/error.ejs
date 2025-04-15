@@ -56,11 +56,10 @@
 </style>
 <body>
   <div class="container">
-    <div class="error-code">404</div>
-    <h1 class="error-message">Page Not Found</h1>
+    <div class="error-code"><%=errorCode%></div>
+    <h1 class="error-message"><%=errorMessage%></h1>
     <p class="description">
-      The page you are looking for might have been removed, had its name
-      changed, or is temporarily unavailable.
+      <%=description%>
     </p>
     <a href="/" class="home-button">Return to Homepage</a>
   </div>
