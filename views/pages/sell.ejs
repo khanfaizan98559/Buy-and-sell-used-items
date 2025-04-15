@@ -7,28 +7,30 @@
       <h1>Sell Your Products With Us</h1>
       <p class="subtitle">Reach thousands of potential buyers with our marketplace</p>
       <div class="progress-steps">
-        <div class="step active">1. Product Details</div>
-        <div class="step">2. Pricing</div>
-        <div class="step">3. Confirm Address</div>
-        <div class="step">4. Review</div>
+        <div class="step active" id="product-details-step">1. Product Details</div>
+        <div class="step" id="pricing-step">2. Pricing</div>
+        <div class="step" id="address-step">3. Confirm Address</div>
+        <div class="step" id="review-step">4. Review</div>
       </div>
     </div>
 
-    <!-- Product Form -->
-    <form action="/sell" method="POST" enctype="multipart/form-data" class="sell-form">
+    <!-- Product Details Form (Initially visible) -->
+    <form action="/sell" method="POST" id="sellForm" enctype="multipart/form-data">
+      <div id="product-details-form" class="sell-form">
       <div class="form-columns">
+        <!-- Left Column -->
         <div class="form-left">
           <!-- Product Name -->
           <div class="form-group">
             <label for="product-name">Product Title*</label>
-            <input type="text" id="product-name" name="productName" placeholder="e.g., Apple MacBook Pro 14-inch M1 Pro Chip" required />
+            <input type="text" id="product-name" name="details[title]" placeholder="e.g., Apple MacBook Pro 14-inch M1 Pro Chip" required />
             <p class="hint">Be specific and include key details</p>
           </div>
 
           <!-- Product Category -->
           <div class="form-group">
             <label for="product-category">Category*</label>
-            <select id="product-category" name="productCategory" required>
+            <select id="product-category" name="details[category]" required>
               <option value="">Select a category</option>
               <option value="electronics">Electronics</option>
               <option value="fashion">Fashion</option>
@@ -38,6 +40,17 @@
               <option value="collectibles">Collectibles</option>
               <option value="other">Other</option>
             </select>
+            <input type="text" id="other-category" name="details[otherCategory]" placeholder="Specify other category" style="display: none; margin-top: 10px;" />
+            <script>
+              document.getElementById('product-category').addEventListener('change', function() {
+                const otherCategoryInput = document.getElementById('other-category');
+                if (this.value === 'other') {
+                  otherCategoryInput.style.display = 'block';
+                } else {
+                  otherCategoryInput.style.display = 'none';
+                }
+              });
+            </script>
           </div>
 
           <!-- Product Condition -->
@@ -45,19 +58,19 @@
             <label>Condition*</label>
             <div class="condition-options">
               <label class="condition-option">
-                <input type="radio" name="condition" value="new" checked required>
+                <input type="radio" name="details[condition]" value="new" checked required>
                 <span>New</span>
               </label>
               <label class="condition-option">
-                <input type="radio" name="condition" value="used" required>
+                <input type="radio" name="details[condition]" value="used" required>
                 <span>Used - Like New</span>
               </label>
               <label class="condition-option">
-                <input type="radio" name="condition" value="good" required>
+                <input type="radio" name="details[condition]" value="good" required>
                 <span>Used - Good</span>
               </label>
               <label class="condition-option">
-                <input type="radio" name="condition" value="fair" required>
+                <input type="radio" name="details[condition]" value="fair" required>
                 <span>Used - Fair</span>
               </label>
             </div>
@@ -66,16 +79,31 @@
           <!-- Product Description -->
           <div class="form-group">
             <label for="product-description">Detailed Description*</label>
-            <textarea id="product-description" name="productDescription" placeholder="Include all relevant details about your product..." rows="6" required></textarea>
+            <div id="description-points-container">
+              <div class="description-point">
+                <input type="text" name="details[description][]" placeholder="Enter a key detail about your product..." required />
+              </div>
+            </div>
+            <button type="button" id="add-description-point-btn" class="add-more-btn">Add More Points</button>
             <p class="hint">Mention features, specifications, dimensions, and any flaws</p>
           </div>
+
+          <script>
+            document.getElementById('add-description-point-btn').addEventListener('click', function() {
+              const container = document.getElementById('description-points-container');
+              const newPoint = document.createElement('div');
+              newPoint.className = 'description-point';
+              newPoint.innerHTML = `<input type="text" name="details[description][]" placeholder="Enter a key detail about your product..." required />`;
+              container.appendChild(newPoint);
+            });
+          </script>
         </div>
 
         <!-- Right Column -->
         <div class="form-right">
           <!-- Product Images -->
           <div class="form-group">
-            <label>Product Images* (Up to 10)</label>
+            <label>Product Images* </label>
             <div class="image-upload-container">
               <div class="upload-area" id="drop-area">
                 <div class="upload-icon">
@@ -86,7 +114,7 @@
                   </svg>
                 </div>
                 <p class="upload-text">Drag & drop images here or click to browse</p>
-                <input type="file" id="product-images" name="productImages" multiple accept="image/*" hidden />
+                <input type="file" id="product-images" name="images" multiple accept="image/*" required hidden />
                 <button type="button" class="browse-btn">Select Images</button>
               </div>
               <div class="preview-container" id="preview-container">
@@ -101,7 +129,7 @@
             <label for="feature-options">Product Features</label>
             <div id="feature-options-container">
               <div class="feature-option">
-                <select name="featureType[]" class="feature-type">
+                <select name="details[features][][featureType]" class="feature-type">
                   <option value="color">Color</option>
                   <option value="brand">Brand</option>
                   <option value="material">Material</option>
@@ -111,28 +139,236 @@
                   <option value="localPickup">Local Pickup</option>
                   <option value="other">Other</option>
                 </select>
-                <input type="text" name="featureValue[]" placeholder="Enter value (e.g., Red, Nike, Cotton)" />
+                <input type="text" name="details[features][][featureValue]" placeholder="Enter value (e.g., Red, Nike, Cotton)" />
               </div>
             </div>
             <button type="button" id="add-feature-btn" class="add-more-btn">Add More Features</button>
           </div>
-
-          <!-- Address Confirmation -->
-          
+          <script>
+            document.getElementById('add-feature-btn').addEventListener('click', function() {
+              const container = document.getElementById('feature-options-container');
+              const newFeature = document.createElement('div');
+              newFeature.className = 'feature-option';
+              newFeature.innerHTML = `
+                <select name="details[features][][featureType]" class="feature-type">
+                  <option value="color">Color</option>
+                  <option value="brand">Brand</option>
+                  <option value="material">Material</option>
+                  <option value="size">Size</option>
+                  <option value="weight">Weight</option>
+                  <option value="freeShipping">Free Shipping</option>
+                  <option value="localPickup">Local Pickup</option>
+                  <option value="other">Other</option>
+                </select>
+                <input type="text" name="details[features][][featureValue]" placeholder="Enter value (e.g., Red, Nike, Cotton)" />
+              `;
+              container.appendChild(newFeature);
+            });
+          </script>
         </div>
       </div>
 
       <!-- Form Footer -->
       <div class="form-footer">
-        <button type="submit" class="submit-btn">
-          <span>Continue</span>
+        <button type="button" id="continue-to-pricing" class="submit-btn">
+          <span>Continue to Pricing</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14M12 5l7 7-7 7"></path>
           </svg>
         </button>
-        <p class="terms">By listing your item, you agree to our <a href="#">Seller Terms</a> and <a href="#">Privacy Policy</a></p>
       </div>
-    </form>
+
+      <!-- Move the terms paragraph here -->
+    </div>
+    <!-- Pricing Form (Initially hidden) -->
+    <div class="sell-form" id="pricing-form" style="display: none;">
+      <div class="form-columns">
+        <div class="form-left">
+          <div class="form-group">
+            <label for="base-price">Base Price*</label>
+            <div class="price-input">
+              <input type="number" id="base-price" name="pricing[basePrice]" placeholder="35999" min="0" step="1" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="discount-price">Discount Price (optional)</label>
+            <div class="price-input">
+              <input type="number" id="discount-price" name="pricing[discountPrice]" placeholder="29999" min="0" step="1" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tax-rate">Tax Rate (%)</label>
+            <input type="number" id="tax-rate" name="pricing[taxRate]" placeholder="18" min="0" max="100" step="0.1" />
+          </div>
+        </div>
+
+        <div class="form-right">
+          <div class="form-group">
+            <label>Shipping Options</label>
+            <div class="shipping-options">
+              <label class="shipping-option">
+                <input type="checkbox" name="pricing[shippingOption][freeShipping]" value="true">
+                <span>Offer free shipping</span>
+              </label>
+              <label class="shipping-option">
+                <input type="checkbox" name="pricing[shippingOption][localPickup]" value="true" checked>
+                <span>Allow local pickup</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="shipping-cost">Shipping Cost (if not free)</label>
+            <div class="price-input">
+              <input type="number" id="shipping-cost" name="pricing[shippingCost]" placeholder="99" min="0" step="1" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="return-policy">Return Policy</label>
+            <select id="return-policy" name="pricing[returnPolicy]">
+              <option value="30-days">30 days return</option>
+              <option value="14-days">14 days return</option>
+              <option value="7-days">7 days return</option>
+              <option value="no-returns">No returns</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <button type="button" id="back-to-details" class="back-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"></path>
+          </svg>
+          <span>Back to Details</span>
+        </button>
+        <button type="button" id="continue-to-address" class="submit-btn">
+          <span>Continue to Address</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Terms Paragraph -->
+    </div>
+
+    <!-- Address Form (Initially hidden) -->
+    <div class="sell-form" id="address-form" style="display: none;">
+      <div class="form-columns">
+        <div class="form-left">
+          <div class="form-group">
+            <label for="address-alias">Select Address</label>
+            <select id="address-alias" name="address[alias]">
+              <option value="">Select from saved addresses</option>
+              <option value="home">Home</option>
+              <option value="work">Work</option>  
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="other-address-group" style="display: none;">
+            <label for="other-address">Specify Address Alias</label>
+            <input type="text" id="other-address" name="address[otherAlias]" placeholder="Enter address alias (e.g., Vacation Home)" />
+          </div>
+
+        <script>
+          document.getElementById('address-alias').addEventListener('change', function () {
+            const otherAddressGroup = document.getElementById('other-address-group');
+            if (this.value === 'other') {
+              otherAddressGroup.style.display = 'block';
+            } else {
+              otherAddressGroup.style.display = 'none';
+            }
+          });
+        </script>
+
+          <div class="form-group">
+            <label for="street-address">Street Address*</label>
+            <input type="text" id="street-address" name="address[street]" placeholder="123 Main St" required />
+          </div>
+
+          <div class="form-group">
+            <label for="city">City*</label>
+            <input type="text" id="city" name="address[city]" placeholder="Mumbai" required />
+          </div>
+        </div>
+
+        <div class="form-right">
+          <div class="form-group">
+            <label for="state">State*</label>
+            <input type="text" id="state" name="address[state]" placeholder="Maharashtra" required />
+          </div>
+
+          <div class="form-group">
+            <label for="zip-code">ZIP Code*</label>
+            <input type="text" id="zip-code" name="address[zipCode]" placeholder="400001" required />
+          </div>
+
+          <div class="form-group">
+            <label for="country">Country*</label>
+            <input type="text" id="country" name="address[country]" placeholder="India" required />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <button type="button" id="back-to-pricing" class="back-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"></path>
+          </svg>
+          <span>Back to Pricing</span>
+        </button>
+        <button type="button" id="continue-to-review" class="submit-btn">
+          <span>Continue to Review</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Terms Paragraph -->
+    </div>
+
+    <!-- Review Form (Initially hidden) -->
+    <div class="sell-form" id="review-form" style="display: none;">
+      <div class="review-container">
+        <h2>Review Your Listing</h2>
+        <div class="review-section">
+          <h3>Product Details</h3>
+          <div id="review-product-details"></div>
+        </div>
+        
+        <div class="review-section">
+          <h3>Pricing</h3>
+          <div id="review-pricing"></div>
+        </div>
+        
+        <div class="review-section">
+          <h3>Shipping From</h3>
+          <div id="review-address"></div>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <button type="button" id="back-to-address" class="back-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"></path>
+          </svg>
+          <span>Back to Address</span>
+        </button>
+        <button type="submit" class="submit-btn">
+          <span>Submit Listing</span>
+        </button>
+      </div>
+
+      <!-- Terms Paragraph -->
+    </div>
+    <p class="terms">By listing your item, you agree to our <a href="/sellerterms">Seller Terms</a> and <a href="/privacy">Privacy Policy</a></p>
+  </form>
   </section>
 
   <style>
@@ -182,6 +418,7 @@
       margin-bottom: 10px;
       background: linear-gradient(90deg, #4f46e5, #8b5cf6);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
@@ -210,8 +447,9 @@
       white-space: nowrap;
       flex: 1;
       margin: 0 2px;
-      justify-content: center;
-      align-self: center;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
 
     .step.active {
@@ -305,6 +543,55 @@
 
     .condition-option:hover {
       border-color: var(--primary-color);
+    }
+
+    /* Price Group */
+    .price-group {
+      position: relative;
+    }
+
+    .price-input {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .price-input .currency {
+      position: absolute;
+      left: 15px;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .price-input input {
+      padding-left: 35px;
+    }
+
+    .price-suggestions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .price-suggestions span {
+      font-size: 0.9rem;
+      color: var(--light-text);
+    }
+
+    .suggestion-btn {
+      padding: 4px 10px;
+      background-color: var(--secondary-color);
+      border: none;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .suggestion-btn:hover {
+      background-color: var(--border-color);
     }
 
     /* Image Upload */
@@ -413,8 +700,9 @@
 
     /* Form Footer */
     .form-footer {
-      margin-top: 30px;
-      text-align: center;
+        display: flex;
+      justify-content: flex-end; /* Align the button to the right */
+      margin-top: 20px;
     }
 
     .submit-btn {
@@ -443,10 +731,34 @@
       margin-left: 8px;
     }
 
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background-color: var(--border-color);
+    }
+
+    .back-btn svg {
+      margin-right: 8px;
+    }
+
     .terms {
+      text-align: center; /* Center the paragraph */
+      margin-top: 20px; /* Add spacing between the form and the paragraph */
       font-size: 0.85rem;
       color: var(--light-text);
-      margin-top: 15px;
     }
 
     .terms a {
@@ -475,15 +787,6 @@
       background-color: var(--primary-hover);
     }
 
-    .form-group input {
-      margin-bottom: 10px;
-      display: block;
-      width: 100%;
-      padding: 10px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-    }
-
     /* Product Features */
     .feature-option {
       display: flex;
@@ -491,12 +794,51 @@
       margin-bottom: 10px;
     }
 
-    .feature-option select,
+    .feature-option select {
+      flex: 1;
+    }
+
     .feature-option input {
-      padding: 10px;
+      flex: 2;
+    }
+
+    /* Review Section */
+    .review-container {
+      padding: 20px;
+    }
+
+    .review-container h2 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      color: var(--primary-color);
+      text-align: center;
+    }
+
+    .review-section {
+      margin-bottom: 30px;
+      padding: 20px;
       border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-size: 1rem;
+      border-radius: 8px;
+    }
+
+    .review-section h3 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    .review-detail {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .review-label {
+      font-weight: 600;
+      width: 150px;
+      color: var(--light-text);
+    }
+
+    .review-value {
       flex: 1;
     }
 
@@ -522,6 +864,15 @@
         flex: 0 0 48%;
         margin-bottom: 5px;
       }
+
+      .form-footer {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .back-btn, .submit-btn {
+        width: 100%;
+      }
     }
 
     @media (max-width: 480px) {
@@ -529,200 +880,263 @@
         font-size: 0.7rem;
         padding: 6px 8px;
       }
+
+      .feature-option {
+        flex-direction: column;
+        gap: 5px;
+      }
     }
   </style>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const dropArea = document.getElementById('drop-area');
+    document.addEventListener('DOMContentLoaded', function () {
+      // Form navigation
+      const productDetailsForm = document.getElementById('product-details-form');
+      const pricingForm = document.getElementById('pricing-form');
+      const addressForm = document.getElementById('address-form');
+      const reviewForm = document.getElementById('review-form');
+      const sellForm=document.getElementById("sellForm")
+
+      // Progress steps
+      const productDetailsStep = document.getElementById('product-details-step');
+      const pricingStep = document.getElementById('pricing-step');
+      const addressStep = document.getElementById('address-step');
+      const reviewStep = document.getElementById('review-step');
+
+      // Buttons
+      const continueToPricingBtn = document.getElementById('continue-to-pricing');
+      const backToDetailsBtn = document.getElementById('back-to-details');
+      const continueToAddressBtn = document.getElementById('continue-to-address');
+      const backToPricingBtn = document.getElementById('back-to-pricing');
+      const continueToReviewBtn = document.getElementById('continue-to-review');
+      const backToAddressBtn = document.getElementById('back-to-address');
+      const submitBtn = document.querySelector('.submit-btn[type="submit"]');
+
+
+      submitBtn.addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent form submission for validation
+        if (validateProductDetails() && validatePricing() && validateAddress()) {
+          sellForm.submit(); // Submit the form if all validations pass
+          alert('Form submitted successfully!');
+          // Here you can add the code to submit the form data to the server
+        }
+      });
+      // Step click handlers
+      continueToPricingBtn.addEventListener('click', () => {
+        if (validateProductDetails()) {
+          highlightStep(pricingStep);
+          showForm('pricing');
+        }
+      });
+
+      continueToAddressBtn.addEventListener('click', () => {
+        if (validatePricing()) {
+          highlightStep(addressStep);
+          showForm('address');
+        }
+      });
+
+      continueToReviewBtn.addEventListener('click', () => {
+        if (validateAddress()) {
+          highlightStep(reviewStep);
+          populateReview();
+          showForm('review');
+        }
+      });
+
+      backToDetailsBtn.addEventListener('click', () => {
+        highlightStep(productDetailsStep);
+        showForm('product-details');
+      });
+
+      backToPricingBtn.addEventListener('click', () => {
+        highlightStep(pricingStep);
+        showForm('pricing');
+      });
+
+      backToAddressBtn.addEventListener('click', () => {
+        highlightStep(addressStep);
+        showForm('address');
+      });
+
+      // Validation functions
+      function validateProductDetails() {
+        const productName = document.getElementById('product-name').value.trim();
+        const productCategory = document.getElementById('product-category').value.trim();
+        const productImages = document.getElementById('product-images').files;
+
+        if (!productName || !productCategory || productImages.length === 0) {
+          alert('Please fill in all required fields in Product Details.');
+          return false;
+        }
+        return true;
+      }
+
+      function validatePricing() {
+        const basePrice = document.getElementById('base-price').value.trim();
+
+        if (!basePrice) {
+          alert('Please enter the Base Price.');
+          return false;
+        }
+        return true;
+      }
+
+      function validateAddress() {
+        const addressAlias = document.getElementById('address-alias').value.trim();
+        const streetAddress = document.getElementById('street-address').value.trim();
+        const city = document.getElementById('city').value.trim();
+        const state = document.getElementById('state').value.trim();
+        const zipCode = document.getElementById('zip-code').value.trim();
+        const country = document.getElementById('country').value.trim();
+
+        if (!addressAlias || !streetAddress || !city || !state || !zipCode || !country) {
+          alert('Please fill in all required fields in Address.');
+          return false;
+        }
+        return true;
+      }
+
+      // Show the appropriate form
+      function showForm(formToShow) {
+        // Hide all forms
+        productDetailsForm.style.display = 'none';
+        pricingForm.style.display = 'none';
+        addressForm.style.display = 'none';
+        reviewForm.style.display = 'none';
+
+        // Show the selected form
+        switch (formToShow) {
+          case 'product-details':
+            productDetailsForm.style.display = 'block';
+            break;
+          case 'pricing':
+            pricingForm.style.display = 'block';
+            break;
+          case 'address':
+            addressForm.style.display = 'block';
+            break;
+          case 'review':
+            reviewForm.style.display = 'block';
+            break;
+        }
+      }
+
+      // Highlight the current step
+      function highlightStep(stepToActivate) {
+        // Remove the active class from all steps
+        [productDetailsStep, pricingStep, addressStep, reviewStep].forEach(step => {
+          step.classList.remove('active');
+        });
+
+        // Add the active class to the current step
+        stepToActivate.classList.add('active');
+      }
+
+      // Populate the review form with data
+      function populateReview() {
+        const reviewProductDetails = document.getElementById('review-product-details');
+        const reviewPricing = document.getElementById('review-pricing');
+        const reviewAddress = document.getElementById('review-address');
+
+        // Populate Product Details
+        reviewProductDetails.innerHTML = `
+          <p><strong>Product Name:</strong> ${document.getElementById('product-name').value}</p>
+          <p><strong>Category:</strong> ${document.getElementById('product-category').value}</p>
+        `;
+
+        // Populate Pricing
+        reviewPricing.innerHTML = `
+          <p><strong>Base Price:</strong> ₹${document.getElementById('base-price').value}</p>
+        `;
+
+        // Populate Address
+        reviewAddress.innerHTML = `
+          <p><strong>Street Address:</strong> ${document.getElementById('street-address').value}</p>
+          <p><strong>City:</strong> ${document.getElementById('city').value}</p>
+        `;
+      }
+
+      // Initialize with the Product Details form
+      showForm('product-details');
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
       const fileInput = document.getElementById('product-images');
+      const dropArea = document.getElementById('drop-area');
       const previewContainer = document.getElementById('preview-container');
       const browseBtn = document.querySelector('.browse-btn');
-      const maxFiles = 10;
-      
-      // Prevent default drag behaviors
+
+      // Handle drag-and-drop events
       ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         dropArea.addEventListener(eventName, preventDefaults, false);
-        document.body.addEventListener(eventName, preventDefaults, false);
       });
-      
-      // Highlight drop area when item is dragged over it
+
       ['dragenter', 'dragover'].forEach(eventName => {
-        dropArea.addEventListener(eventName, highlight, false);
+        dropArea.addEventListener(eventName, () => dropArea.classList.add('highlight'), false);
       });
-      
+
       ['dragleave', 'drop'].forEach(eventName => {
-        dropArea.addEventListener(eventName, unhighlight, false);
+        dropArea.addEventListener(eventName, () => dropArea.classList.remove('highlight'), false);
       });
-      
-      // Handle dropped files
+
       dropArea.addEventListener('drop', handleDrop, false);
-      
-      // Handle click on browse button
-      browseBtn.addEventListener('click', () => {
-        fileInput.click();
-      });
-      
-      // Handle file selection
-      fileInput.addEventListener('change', handleFiles, false);
-      
+
+      // Handle browse button click
+      browseBtn.addEventListener('click', () => fileInput.click());
+
+      // Handle file input change
+      fileInput.addEventListener('change', handleFiles);
+
+      // Prevent default behavior for drag-and-drop events
       function preventDefaults(e) {
         e.preventDefault();
         e.stopPropagation();
       }
-      
-      function highlight() {
-        dropArea.classList.add('highlight');
-      }
-      
-      function unhighlight() {
-        dropArea.classList.remove('highlight');
-      }
-      
+
+      // Handle dropped files
       function handleDrop(e) {
-        const dt = e.dataTransfer;
-        const files = dt.files;
+        const files = e.dataTransfer.files;
         handleFiles({ target: { files } });
       }
-      
+
+      // Handle selected files
       function handleFiles(e) {
         const files = e.target.files;
-        
-        if (files.length + previewContainer.children.length > maxFiles) {
-          alert(`You can upload a maximum of ${maxFiles} images.`);
-          return;
-        }
-        
-        for (let i = 0; i < files.length; i++) {
-          const file = files[i];
-          
-          if (!file.type.match('image.*')) {
-            continue;
-          }
-          
-          const reader = new FileReader();
-          
-          reader.onload = function(e) {
-            const previewItem = document.createElement('div');
-            previewItem.className = 'preview-item';
-            
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            
-            const removeBtn = document.createElement('button');
-            removeBtn.className = 'remove-btn';
-            removeBtn.innerHTML = '&times;';
-            removeBtn.addEventListener('click', () => {
-              previewItem.remove();
-              updateFileInput();
-            });
-            
-            previewItem.appendChild(img);
-            previewItem.appendChild(removeBtn);
-            previewContainer.appendChild(previewItem);
-            
-            updateFileInput();
-          };
-          
-          reader.readAsDataURL(file);
-        }
-      }
-      
-      function updateFileInput() {
-        // This is a simplified approach - in a real app you might need to handle
-        // the file list more carefully, possibly using FormData
-      }
-      
-      // Price suggestion buttons
-      const suggestionBtns = document.querySelectorAll('.suggestion-btn');
-      const priceInput = document.getElementById('product-price');
-      
-      suggestionBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const price = btn.textContent.replace(/[^0-9]/g, '');
-          priceInput.value = price;
+        const fileInput = document.getElementById('product-images');
+        const dataTransfer = new DataTransfer();
+
+        // Add existing files from the input
+        Array.from(fileInput.files).forEach(file => dataTransfer.items.add(file));
+
+        Array.from(files).forEach(file => {
+          dataTransfer.items.add(file);
+          previewFile(file);
         });
-      });
 
-      // Add More Colors
-      const colorContainer = document.getElementById('color-options-container');
-      const addColorBtn = document.getElementById('add-color-btn');
-      addColorBtn.addEventListener('click', () => {
-        const newColorInput = document.createElement('div');
-        newColorInput.className = 'color-option';
-        newColorInput.innerHTML = `<input type="text" name="productColors[]" placeholder="e.g., Blue" />`;
-        colorContainer.appendChild(newColorInput);
-      });
+        // Update the input's files
+        fileInput.files = dataTransfer.files;
+      }
 
-      // Add More Sizes
-      const sizeContainer = document.getElementById('size-options-container');
-      const addSizeBtn = document.getElementById('add-size-btn');
-      addSizeBtn.addEventListener('click', () => {
-        const newSizeInput = document.createElement('div');
-        newSizeInput.className = 'size-option';
-        newSizeInput.innerHTML = `<input type="text" name="productSizes[]" placeholder="e.g., Medium" />`;
-        sizeContainer.appendChild(newSizeInput);
-      });
+      // Preview the selected file
+      function previewFile(file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = function () {
+          const previewItem = document.createElement('div');
+          previewItem.classList.add('preview-item');
+          previewItem.innerHTML = `
+            <img src="${reader.result}" alt="Preview">
+            <button type="button" class="remove-btn">&times;</button>
+          `;
+          previewContainer.appendChild(previewItem);
 
-      // Add More Custom Features
-      const customContainer = document.getElementById('custom-options-container');
-      const addCustomBtn = document.getElementById('add-custom-btn');
-      addCustomBtn.addEventListener('click', () => {
-        const newCustomInput = document.createElement('div');
-        newCustomInput.className = 'custom-option';
-        newCustomInput.innerHTML = `<input type="text" name="customFeatures[]" placeholder="e.g., Waterproof" />`;
-        customContainer.appendChild(newCustomInput);
-      });
-
-      // Add More Product Features
-      const featureContainer = document.getElementById('feature-options-container');
-      const addFeatureBtn = document.getElementById('add-feature-btn');
-
-      addFeatureBtn.addEventListener('click', () => {
-        const newFeatureOption = document.createElement('div');
-        newFeatureOption.className = 'feature-option';
-        newFeatureOption.innerHTML = `
-          <select name="featureType[]" class="feature-type">
-            <option value="color">Color</option>
-            <option value="brand">Brand</option>
-            <option value="material">Material</option>
-            <option value="size">Size</option>
-            <option value="weight">Weight</option>
-            <option value="freeShipping">Free Shipping</option>
-            <option value="localPickup">Local Pickup</option>
-            <option value="other">Other</option>
-          </select>
-          <input type="text" name="featureValue[]" placeholder="Enter value (e.g., Red, Nike, Cotton)" />
-        `;
-        featureContainer.appendChild(newFeatureOption);
-      });
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const featureContainer = document.getElementById('feature-options-container');
-      const addFeatureBtn = document.getElementById('add-feature-btn');
-
-      // Add event listener to the "Add More Features" button
-      addFeatureBtn.addEventListener('click', () => {
-        // Create a new feature option container
-        const newFeatureOption = document.createElement('div');
-        newFeatureOption.className = 'feature-option';
-        newFeatureOption.innerHTML = `
-          <select name="featureType[]" class="feature-type">
-            <option value="color">Color</option>
-            <option value="brand">Brand</option>
-            <option value="material">Material</option>
-            <option value="size">Size</option>
-            <option value="weight">Weight</option>
-            <option value="freeShipping">Free Shipping</option>
-            <option value="localPickup">Local Pickup</option>
-            <option value="other">Other</option>
-          </select>
-          <input type="text" name="featureValue[]" placeholder="Enter value (e.g., Red, Nike, Cotton)" />
-        `;
-        // Append the new feature option to the container
-        featureContainer.appendChild(newFeatureOption);
-      });
+          // Handle remove button click
+          previewItem.querySelector('.remove-btn').addEventListener('click', () => {
+            previewItem.remove();
+          });
+        };
+      }
     });
   </script>
 </body>

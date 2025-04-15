@@ -82,6 +82,35 @@ module.exports.searchProducts = async (req, res) => {
   }
 };
 
+// Get 20 random products
+module.exports.getRandomProducts = async (req, res) => {
+  try {
+    const products = await Product.aggregate([
+      { $sample: { size: 20 } }, // Randomly select 20 products
+      {
+        $lookup: {
+          from: 'users', // Populate seller details
+          localField: 'seller',
+          foreignField: '_id',
+          as: 'seller',
+        },
+      },
+      {
+        $lookup: {
+          from: 'categories', // Populate category details
+          localField: 'category',
+          foreignField: '_id',
+          as: 'category',
+        },
+      },
+    ]);
+
+    res.status(200).json({ success: true, products });
+  } catch (error) {
+    // res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 // Create a new category
 module.exports.createCategory = async (req, res) => {
   try {
@@ -99,7 +128,7 @@ module.exports.getAllCategories = async (req, res) => {
     const categories = await Category.find();
     res.status(200).json({ success: true, categories });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    // res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -141,3 +170,25 @@ module.exports.deleteCategory = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+// Get 20 random categories
+module.exports.getRandomCategories = async (req, res) => {
+  try {
+    const categories = await Category.aggregate([
+      { $sample: { size: 20 } }, // Randomly select 20 categories
+      {
+        $lookup: {
+          from: 'products', // Populate products in each category
+          localField: '_id',
+          foreignField: 'category',
+          as: 'products',
+        },
+      },
+    ]);
+
+    res.status(200).json({ success: true, categories });
+  } catch (error) {
+    // res.status(500).json({ success: false, message: error.message });
+  }
+};
+

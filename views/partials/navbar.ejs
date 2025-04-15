@@ -1,7 +1,7 @@
 <nav>
   <div class="navbar">
-    <a class="navbar-logo" href="/">
-      <img loading="lazy" class="logo" src="/images/logo.webp" />
+    <a class="navbar-logo" href="/" aria-label="Home">
+      <img loading="lazy" class="logo" src="/images/logo.webp" alt="Swapnest Logo" />
       <h1>SWAPNEST</h1>
     </a>
 
@@ -19,7 +19,12 @@
       <a class="nav-link-item" href="/contact">CONTACT US</a>
       <a class="nav-link-item" href="/faq">FAQ</a>
       <a class="nav-link-item loginBtn">LOGIN</a>
-      <a class="nav-link-item navbar-sellBtn" href="/sell">SELL</a>
+      <%if(currUser){%>
+        <a class="nav-link-item navbar-sellBtn" href="/sell">SELL</a>
+        <%} else {%>
+          <a class="nav-link-item navbar-sellBtn loginBtn">SELL</a>
+
+        <%}%>
     </div>
 </nav>
 

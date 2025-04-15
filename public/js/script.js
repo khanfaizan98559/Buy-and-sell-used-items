@@ -4,13 +4,11 @@ let navbarLinks = document.querySelectorAll("nav-link-item:not(.navbar-sellBtn)"
 let activeNavbarLink = document.querySelector("a.nav-link-item.active");
 
 for(let navbarLink of navbarLinks) {
-    navbarLink.addEventListener("click", function() {
-        if(activeNavbarLink) {
-            activeNavbarLink.classList.remove("active");
-        }
+    navbarLink.addEventListener("click",()=>{
+        activeNavbarLink.classList.remove("remove");
         navbarLink.classList.add("active");
-        activeNavbarLink = navbarLink;
-    });
+        activeNavbarLink=navbarLink;
+    })
 }
 
 //searchbar suggestions

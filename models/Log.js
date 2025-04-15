@@ -22,4 +22,6 @@ const logSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
-module.exports = mongoose.model('Log', logSchema);
+const Log = mongoose.model('Log', logSchema) || mongoose.model('Log', logSchema);
+
+module.exports = Log; // Export the Log model for use in other parts of the application

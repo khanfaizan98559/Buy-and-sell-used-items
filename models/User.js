@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 // Define the user schema
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  phone: { type: String, required: true },
+  phoneNo: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   profilePicture: { type: String }, // URL for the profile picture
@@ -16,6 +16,8 @@ const userSchema = new mongoose.Schema({
   ],
   dateOfBirth: { type: Date },
   chats:[{
+
+    
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Chat'
   }],
@@ -42,4 +44,6 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.models.User || mongoose.model('User', userSchema);
+
+module.exports = User;

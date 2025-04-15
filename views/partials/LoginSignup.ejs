@@ -1,8 +1,8 @@
 <div class="login-popup user-popup">
     <h2>Login</h2>
     <form action="/login" method="post">
-        <input type="email" name="loginEmail" id="loginEmail" placeholder="Email" required />
-        <input type="password" name="loginPassword" id="loginPassword" placeholder="Password" required />
+        <input type="email" name="email" id="loginEmail" placeholder="Email" required />
+        <input type="password" name="password" id="loginPassword" placeholder="Password" required />
         <p>Don't have an account? <a class="signupBtn" style="color: blue;">Sign up</a></p>
         <button class="userBtn" type="submit">Login</button>
     </form>
@@ -19,11 +19,10 @@
             </div>
         </label>
         <input type="file" name="profilePicture" id="profilePicture" accept="image/*" onchange="previewImage(event)" style="display: none;" />
-        <input type="text" name="userName" id="userName" placeholder="Name" required />
-        <input type="number" name="signupPhoneNo" id="signupPhoneNo" placeholder="Phone Number" required />
-        <input type="email" name="signupEmailId" id="signupEmailId" placeholder="Email" required />
-        <input type="password" name="signupPassword" id="signupPassword" placeholder="Password" required />
-        <input type="password" name="signupConfirmPasaword" id="signupConfirmPasaword" placeholder="Confirm Password" required />
+        <input type="text" name="name" id="name" placeholder="Name" required />
+        <input type="number" name="phoneNo" id="signupPhoneNo" placeholder="Phone Number" required />
+        <input type="email" name="email" id="signupEmailId" placeholder="Email" required />
+        <input type="password" name="password" id="signupPassword" placeholder="Password" required />
         
         
         

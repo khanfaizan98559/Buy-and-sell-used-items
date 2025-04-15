@@ -7,10 +7,9 @@ const ejsMate = require('ejs-mate');
 const passport = require('passport');
 const session = require('express-session');
 const dotenv = require('dotenv');
-const initializePassport = require('./passport-config');
+const initializePassport = require('./middleware/passport-config');
 const User = require('./models/User'); // Import the user model
 const flash = require('connect-flash'); // Import flash
-
 
 // Load environment variables
 dotenv.config();
@@ -60,17 +59,21 @@ app.use(
 // Flash middleware
 app.use(flash());
 
-// Global variables for flash messages
-app.use((req, res, next) => {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error'); // For Passport errors
-  next();
-});
+
 
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Global variables for flash messages
+app.use((req, res, next) => {
+  res.locals.currUser=req.user || null
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  console.log('Authenticated User:', req.user);
+  next();
+});
 
 // Use routes
 app.use('/', indexRoutes);

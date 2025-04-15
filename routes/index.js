@@ -1,16 +1,31 @@
 const express = require('express');
 const router = express.Router();
 const { isSignedIn } = require("../middleware.js");
+const indexController = require('../controller/index.js');
+const {  cloudinary,productStorage } = require('../middleware/cloudConfig'); // Import multer and cloudinary
+const multer = require('multer');
+const upload=multer(productStorage);
+const productController=require("../controller/product.js")
 
-// Home route
+
+
 router.get('/', (req, res) => {
-  res.render('pages/index');
+  const categories = productController.getRandomCategories();
+  const featuredProducts = productController.getRandomProducts();
+  const newArrival = productController.getRandomProducts();
+  const forYou = productController.getRandomProducts();
+  res.render('pages/index',{categories,featuredProducts,newArrival,forYou});
 });
 
 // Sell page route
-router.get('/sell', (req, res) => {
-  res.render('pages/sell');
-});
+router
+.route('/sell')
+.get(indexController.renderSellPage)
+.post(
+  upload.fields([
+  { name: 'images'}]),
+  indexController.listProduct),
+
 
 // Product page route
 router.get('/product', (req, res) => {
@@ -29,6 +44,18 @@ router.get('/about', (req, res) => {
 
 router.get('/faq', (req, res) => {
   res.render('pages/faq');
+});
+
+router.get('/chat',(req, res) => {
+  res.render('pages/chat');
+});
+
+router.get('/sellerterms', (req, res) => {
+  res.render('pages/sellerterms');
+});
+
+router.get('/privacy', (req, res) => {
+  res.render('pages/privacy');
 });
 
 module.exports = router;

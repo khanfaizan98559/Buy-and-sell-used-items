@@ -1,4 +1,14 @@
 <%- layout("/layouts/boilerplate.ejs") %>
+<style>
+    .team-grid div, .team-member {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .team-grid div:hover, .team-member:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+    }
+</style>
 <body>
     <div class="about-container">
         <div class="tagline">
