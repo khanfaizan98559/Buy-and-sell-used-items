@@ -21,6 +21,7 @@ const userRoutes = require('./routes/user');
 const productRoutes = require('./routes/product');
 const chatRoutes = require('./routes/chat');
 const logRoutes = require('./routes/log');
+const searchRoutes=require("./routes/search")
 
 const app = express();
 
@@ -80,6 +81,7 @@ app.use((req, res, next) => {
 // Use routes
 app.use('/', indexRoutes);
 app.use('/', authRoutes);
+app.use('/search', searchRoutes);
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
 app.use('/chats', chatRoutes);

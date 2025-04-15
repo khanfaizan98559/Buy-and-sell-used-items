@@ -14,14 +14,59 @@ for(let navbarLink of navbarLinks) {
 //searchbar suggestions
 let searchInput = document.querySelector("#searchInput");
 let searchSuggestionsPopup = document.querySelector(".search-suggestions-popup");
-
-searchInput.addEventListener("input",()=>{
-    if(searchInput.value.trim().length > 0) {
-        searchSuggestionsPopup.classList.add("active");
+let searchForm = document.querySelector("#searchForm"); // Assuming the search input is inside a form with this ID
+console.log(searchInput)
+searchInput.addEventListener("input", () => {
+    const query = searchInput.value.trim(); // Get the input value
+    if (query.length > 0) {
+        fetch(`/search?q=${encodeURIComponent(query)}`) // Pass the query as a parameter
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to fetch search suggestions");
+                }
+                return response.json();
+            })
+            .then(data => {
+                const searchSuggestionsList = document.querySelector(".search-suggestions-list");
+                searchSuggestionsList.innerHTML = ""; // Clear previous suggestions
+                if (data.length === 0) {
+                    const noResultsItem = document.createElement("li");
+                    noResultsItem.textContent = "No results found";
+                    noResultsItem.classList.add("no-results");
+                    searchSuggestionsList.appendChild(noResultsItem);
+                } else {
+                    data.forEach(suggestion => {
+                        const suggestionItem = document.createElement("li");
+                        const suggestionLink = document.createElement("a");
+                        suggestionItem.appendChild(suggestionLink)
+                        suggestionLink.href = `/product/${suggestion._id}`;
+                        suggestionLink.textContent = suggestion.details.title;
+                        suggestionItem.classList.add("suggestion-item");
+                        suggestionItem.addEventListener("click", () => {
+                            searchInput.value = suggestion; // Set the clicked suggestion as input value
+                            searchSuggestionsList.innerHTML = ""; // Clear suggestions
+                            searchForm.submit(); // Submit the form
+                        });
+                        searchSuggestionsList.appendChild(suggestionItem);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching search suggestions:", error);
+            });
     } else {
-        searchSuggestionsPopup.classList.remove("active");
+        const searchSuggestionsList = document.querySelector(".search-suggestions-list");
+        searchSuggestionsList.innerHTML = ""; // Clear suggestions if input is empty
     }
-})
+});
+
+// Submit the form when the user presses "Enter"
+searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault(); // Prevent default form submission behavior
+        searchForm.submit(); // Submit the form
+    }
+});
 
 searchInput.addEventListener("focus", () => {
     if (searchInput.value.trim().length > 0) {

@@ -7,8 +7,12 @@
 
             <p>Find Great deals for buy and sell Used and unused items</p>
             <div class="heroBtns">
-                <div class="heroBtn-login heroBtn loginBtn" href="/login">Login</div>
-                <div class="heroBtn-signup heroBtn signupBtn">Signup</div>
+                <%if(!currUser){%>
+                    <div class="heroBtn-login heroBtn loginBtn" href="/login">Login</div>
+                    <div class="heroBtn-signup heroBtn signupBtn">Signup</div>
+                    <%}else{%>
+                    <a href="/sell" class="heroBtn-signup heroBtn">SELL</a>
+                    <%}%>
             </div>
         </div>
         <div class="right">

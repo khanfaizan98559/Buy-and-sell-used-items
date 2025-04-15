@@ -66,4 +66,5 @@ router.get('/privacy', (req, res) => {
   res.render('pages/privacy');
 });
 
+
 module.exports = router;

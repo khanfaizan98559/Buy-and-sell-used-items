@@ -10,7 +10,6 @@ const productController=require("./product.js")
 
 module.exports.renderSellPage=async (req, res) => {
   const categories=await productController.getAllCategories();
-  console.log(categories)
   res.render('pages/sell',{categories});
 };
 
