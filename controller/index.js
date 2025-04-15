@@ -8,8 +8,9 @@ const Category = require('../models/Category'); // Import the Category model
 const Address=require("../models/Address")
 const productController=require("./product.js")
 
-module.exports.renderSellPage=(req, res) => {
-  const categories=productController.getAllCategories();
+module.exports.renderSellPage=async (req, res) => {
+  const categories=await productController.getAllCategories();
+  console.log(categories)
   res.render('pages/sell',{categories});
 };
 

@@ -105,7 +105,7 @@ module.exports.getRandomProducts = async (req, res) => {
       },
     ]);
 
-    res.status(200).json({ success: true, products });
+    return products
   } catch (error) {
     // res.status(500).json({ success: false, message: error.message });
   }
@@ -126,7 +126,7 @@ module.exports.createCategory = async (req, res) => {
 module.exports.getAllCategories = async (req, res) => {
   try {
     const categories = await Category.find();
-    res.status(200).json({ success: true, categories });
+    return categories
   } catch (error) {
     // res.status(500).json({ success: false, message: error.message });
   }
@@ -186,7 +186,7 @@ module.exports.getRandomCategories = async (req, res) => {
       },
     ]);
 
-    res.status(200).json({ success: true, categories });
+    return categories
   } catch (error) {
     // res.status(500).json({ success: false, message: error.message });
   }

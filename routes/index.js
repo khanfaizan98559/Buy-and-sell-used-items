@@ -9,11 +9,15 @@ const productController=require("../controller/product.js")
 
 
 
-router.get('/', (req, res) => {
-  const categories = productController.getRandomCategories();
-  const featuredProducts = productController.getRandomProducts();
-  const newArrival = productController.getRandomProducts();
-  const forYou = productController.getRandomProducts();
+router.get('/', async(req, res) => {
+  const categories =await productController.getRandomCategories();
+  const featuredProducts = await productController.getRandomProducts();
+  const newArrival = await productController.getRandomProducts();
+  const forYou = await productController.getRandomProducts();
+  console.log(categories)
+  console.log(featuredProducts)
+  console.log(newArrival)
+  console.log(forYou)
   res.render('pages/index',{categories,featuredProducts,newArrival,forYou});
 });
 

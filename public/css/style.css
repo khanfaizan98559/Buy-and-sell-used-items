@@ -305,7 +305,9 @@ nav {
     border-color: #000000;
     border-width: 1px;
     min-width: 137px;
+    max-width: 137px;
     min-height: 142px;
+    max-height: 142px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -313,10 +315,10 @@ nav {
     gap: 0.5rem;
 
     .category-img {
-      width: 80%;
-      height: 65%;
+      width: 110px;
+      height: 92px;
       overflow: visible;
-      object-fit: cover;
+      object-fit:cover;
       border-radius: 1rem;
       overflow: hidden;
     }

@@ -31,14 +31,10 @@
           <div class="form-group">
             <label for="product-category">Category*</label>
             <select id="product-category" name="details[category]" required>
-              <option value="">Select a category</option>
-              <option value="electronics">Electronics</option>
-              <option value="fashion">Fashion</option>
-              <option value="home">Home & Garden</option>
-              <option value="sports">Sports & Outdoors</option>
-              <option value="vehicles">Vehicles</option>
-              <option value="collectibles">Collectibles</option>
-              <option value="other">Other</option>
+              <option value="" disabled>Select a category</option>
+              <% for (var category of categories) { %>
+                <option value="<%= category.name %>"><%= category.name %></option>
+              <% } %>
             </select>
             <input type="text" id="other-category" name="details[otherCategory]" placeholder="Specify other category" style="display: none; margin-top: 10px;" />
             <script>
