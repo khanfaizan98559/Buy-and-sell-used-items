@@ -48,7 +48,6 @@ module.exports.listProduct = async(req, res) => {
     await newAddress.save();
     newProduct.address=newAddress;
     currUser.addresses.push(newAddress);
-    console.log("address saved successfully")
 
   }else{
     newProduct.address=await Address.findOne({user:currUser, alias:address.alias});

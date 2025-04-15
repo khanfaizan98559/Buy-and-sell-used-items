@@ -15,7 +15,6 @@ for(let navbarLink of navbarLinks) {
 let searchInput = document.querySelector("#searchInput");
 let searchSuggestionsPopup = document.querySelector(".search-suggestions-popup");
 let searchForm = document.querySelector("#searchForm"); // Assuming the search input is inside a form with this ID
-console.log(searchInput)
 searchInput.addEventListener("input", () => {
     const query = searchInput.value.trim(); // Get the input value
     if (query.length > 0) {
@@ -43,7 +42,7 @@ searchInput.addEventListener("input", () => {
                         suggestionLink.textContent = suggestion.details.title;
                         suggestionItem.classList.add("suggestion-item");
                         suggestionItem.addEventListener("click", () => {
-                            searchInput.value = suggestion; // Set the clicked suggestion as input value
+                            searchInput.value = suggestion.details.title; // Set the clicked suggestion as input value
                             searchSuggestionsList.innerHTML = ""; // Clear suggestions
                             searchForm.submit(); // Submit the form
                         });
@@ -159,7 +158,6 @@ for(let el of scrollableContent) {
 
     el.addEventListener("scroll", () => {
       const maxScrollLeft = el.scrollWidth - el.clientWidth;
-        console.log(maxScrollLeft)
       if (el.previousElementSibling && el.scrollLeft <= 0) {
         console.dir(el.previousElementSibling.classList);
         el.previousElementSibling.classList.add("disabled");

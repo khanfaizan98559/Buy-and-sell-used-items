@@ -15,10 +15,6 @@ router.get('/', async(req, res) => {
   const featuredProducts = await productController.getRandomProducts();
   const newArrival = await productController.getRandomProducts();
   const forYou = await productController.getRandomProducts();
-  console.log(categories)
-  console.log(featuredProducts)
-  console.log(newArrival)
-  console.log(forYou)
   res.render('pages/index',{categories,featuredProducts,newArrival,forYou});
 });
 
@@ -36,7 +32,6 @@ router
 router.get('/product/:id', async (req, res) => {
   const id = req.params.id;
   const product = await Product.findById(id)
-  console.log("product:: ",product)
   res.render('pages/product',{product});
 });
 

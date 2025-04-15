@@ -125,16 +125,7 @@
             <label for="feature-options">Product Features</label>
             <div id="feature-options-container">
               <div class="feature-option">
-                <select name="details[features][][featureType]" class="feature-type">
-                  <option value="color">Color</option>
-                  <option value="brand">Brand</option>
-                  <option value="material">Material</option>
-                  <option value="size">Size</option>
-                  <option value="weight">Weight</option>
-                  <option value="freeShipping">Free Shipping</option>
-                  <option value="localPickup">Local Pickup</option>
-                  <option value="other">Other</option>
-                </select>
+                <input type="text" name="details[features][][featureType]" class="feature-type" placeholder="Enter type (e.g., color, brand)">
                 <input type="text" name="details[features][][featureValue]" placeholder="Enter value (e.g., Red, Nike, Cotton)" />
               </div>
             </div>
@@ -146,16 +137,7 @@
               const newFeature = document.createElement('div');
               newFeature.className = 'feature-option';
               newFeature.innerHTML = `
-                <select name="details[features][][featureType]" class="feature-type">
-                  <option value="color">Color</option>
-                  <option value="brand">Brand</option>
-                  <option value="material">Material</option>
-                  <option value="size">Size</option>
-                  <option value="weight">Weight</option>
-                  <option value="freeShipping">Free Shipping</option>
-                  <option value="localPickup">Local Pickup</option>
-                  <option value="other">Other</option>
-                </select>
+                <input type="text" name="details[features][][featureType]" class="feature-type" placeholder="Enter type (e.g., color, brand)">
                 <input type="text" name="details[features][][featureValue]" placeholder="Enter value (e.g., Red, Nike, Cotton)" />
               `;
               container.appendChild(newFeature);
