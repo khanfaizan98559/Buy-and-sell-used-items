@@ -31,7 +31,7 @@ module.exports.getProductById = async (req, res) => {
     }
     return product;
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    // res.status(500).json({ success: false, message: error.message });
   }
 };
 
