@@ -325,8 +325,9 @@ nav {
 
     .category-name {
       color: #000000;
-      text-align: left;
-      font-size: 16px;
+      text-align: center;
+      font-size: 12px;
+
       font-weight: 400;
     }
   }

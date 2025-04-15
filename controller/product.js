@@ -23,9 +23,9 @@ module.exports.getAllProducts = async (req, res) => {
 };
 
 // Get a single product by ID
-module.exports.getProductById = async (req, res) => {
+module.exports.getProductById =  async(id) => {
   try {
-    const product = await Product.findById(req.params.id).populate('seller').populate('category');
+    const product = await Product.findById(id).populate('seller').populate('category');
     if (!product) {
       return res.status(404).json({ success: false, message: 'Product not found' });
     }

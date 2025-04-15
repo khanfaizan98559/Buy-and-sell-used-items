@@ -6,6 +6,7 @@ const {  cloudinary,productStorage } = require('../middleware/cloudConfig'); // 
 const multer = require('multer');
 const upload=multer(productStorage);
 const productController=require("../controller/product.js")
+const Product=require("../models/Product.js")
 
 
 
@@ -32,9 +33,10 @@ router
 
 
 // Product page route
-router.get('/product/:id', (req, res) => {
+router.get('/product/:id', async (req, res) => {
   const id = req.params.id;
-  const product = productController.getProductById(id);
+  const product = await Product.findById(id)
+  console.log("product:: ",product)
   res.render('pages/product',{product});
 });
 
