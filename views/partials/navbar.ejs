@@ -20,6 +20,8 @@
       <a class="nav-link-item" href="/faq">FAQ</a>
       <%if(!currUser){%>
         <a class="nav-link-item loginBtn">LOGIN</a>
+        <%}else{%>
+          <a class="nav-link-item logoutBtn">LOGOUT</a>
       <%}%>
       <%if(currUser){%>
         <a class="nav-link-item navbar-sellBtn" href="/sell">SELL</a>

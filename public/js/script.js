@@ -176,6 +176,40 @@ for(let el of scrollableContent) {
     el.dispatchEvent(new Event("scroll"));
 }
 
+// Logout Popup Functionality
+const logoutPopup = document.querySelector(".logout-popup");
+const confirmLogoutBtn = document.querySelector(".confirm-logout");
+const cancelLogoutBtn = document.querySelector(".cancel-logout");
+const logoutTrigger = document.querySelector(".logoutBtn"); // Add a button with class "logoutBtn" to trigger the popup
+
+// Show the logout popup
+if(logoutTrigger){
+    logoutTrigger.addEventListener("click", () => {
+        logoutPopup.classList.add("active");
+    });
+}
+
+// Confirm logout
+confirmLogoutBtn.addEventListener("click", () => {
+    // Redirect to the logout route
+    window.location.href = "/logout";
+});
+
+// Cancel logout
+cancelLogoutBtn.addEventListener("click", () => {
+    logoutPopup.classList.remove("active");
+});
+
+// Close the popup when clicking outside
+document.addEventListener("click", (event) => {
+    if (
+        logoutPopup.classList.contains("active") &&
+        !logoutPopup.contains(event.target) &&
+        !event.target.classList.contains("logoutBtn")
+    ) {
+        logoutPopup.classList.remove("active");
+    }
+});
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -187,3 +221,4 @@ if ('serviceWorker' in navigator) {
       );
   });
 }
+

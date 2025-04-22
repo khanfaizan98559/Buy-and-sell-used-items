@@ -22,6 +22,18 @@ router.post(
   })
 );
 
+// Logout route
+router.get('/logout', (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            console.error(err);
+            return res.redirect('/');
+        }
+        req.flash('success_msg', 'You have logged out successfully.');
+        res.redirect('/');
+    });
+});
+
 // Signup route with profile picture upload
 router.post('/signup', upload.single('profilePicture'), async (req, res) => {
 
