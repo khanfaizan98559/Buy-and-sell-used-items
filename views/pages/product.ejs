@@ -31,11 +31,11 @@
           <span class="savings">You save: <%=product.pricing.basePrice-product.pricing.discountPrice%></span>
         </div>
         <div class="product-features">
-          <div><i class="fa-solid fa-rotate"></i>7 Days Replacement</div>
-          <div><i class="fa-solid fa-truck"></i>Free Delivery</div>
-          <div><i class="fa-solid fa-trophy"></i>Top Brand</div>
-          <div><i class="fa-solid fa-trophy"></i>1 Year Warranty</div>
-          <div><i class="fa-solid fa-lock"></i>Secure Transaction</div>
+            <div><i class="fa-solid fa-rotate"></i>7 Days Replacement</div>
+            <div><i class="fa-solid fa-truck"></i>Free Delivery</div>
+            <div><i class="fa-solid fa-trophy"></i>Top Brand</div>
+            <div><i class="fa-solid fa-trophy"></i>1 Year Warranty</div>
+            <div><i class="fa-solid fa-lock"></i>Secure Transaction</div>
         </div>
         <div class="product-about">
           <h3>About This Item</h3>
@@ -46,15 +46,11 @@
           </ul>
         </div>
         <table>
-          <tr><td><strong>Brand</strong></td><td>Logitech</td></tr>
-          <tr><td><strong>Colour</strong></td><td>Colt Glossy</td></tr>
-          <tr><td><strong>Connector Type</strong></td><td>Wireless</td></tr>
-          <tr>
-            <td><strong>Movement Detection<br>Technology</strong></td>
-            <td>Optical</td>
-          </tr>
-          <tr><td><strong>Material</strong></td><td>Rubber</td></tr>
-          <tr><td><strong>Wireless Type</strong></td><td>802.11a</td></tr>
+          <%if(product.details.features){%>
+          <%for(let i=0; i<product.details.features.featureType.length;i++){%>
+            <tr><td><strong><%=product.details.features.featureType[i]%></strong></td><td><%=product.details.features.featureValue[i]%></td></tr>
+          <%}}%>
+
         </table>
       </div>
     </section>

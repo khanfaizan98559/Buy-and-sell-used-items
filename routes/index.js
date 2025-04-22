@@ -90,5 +90,10 @@ router.get("/error",(req,res)=>{
   res.render('pages/error');
 })
 
+router.get("/offline",(req,res)=>{
+  res.render("pages/offline");
+
+})
+
 
 module.exports = router;

@@ -37,16 +37,5 @@
     <div class="main-container"><%-body%></div>
     <%- include("../partials/footer.ejs")%>
     <script src="/js/script.js" defer></script>
-    <script defer>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker
-          .register('/service-worker.js')
-          .then((registration) => {
-          })
-          .catch((error) => {
-            console.error('Service Worker registration failed:', error);
-          });
-      }
-    </script>
 </body>
 </html>

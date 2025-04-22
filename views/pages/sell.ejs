@@ -125,8 +125,8 @@
             <label for="feature-options">Product Features</label>
             <div id="feature-options-container">
               <div class="feature-option">
-                <input type="text" name="details[features][][featureType]" class="feature-type" placeholder="Enter type (e.g., color, brand)">
-                <input type="text" name="details[features][][featureValue]" placeholder="Enter value (e.g., Red, Nike, Cotton)" />
+                <input type="text" name="details[features][featureType][]" class="feature-type" placeholder="Enter type (e.g., color, brand)">
+                <input type="text" name="details[features][featureValue][]" placeholder="Enter value (e.g., Red, Nike, Cotton)" />
               </div>
             </div>
             <button type="button" id="add-feature-btn" class="add-more-btn">Add More Features</button>
@@ -137,8 +137,8 @@
               const newFeature = document.createElement('div');
               newFeature.className = 'feature-option';
               newFeature.innerHTML = `
-                <input type="text" name="details[features][][featureType]" class="feature-type" placeholder="Enter type (e.g., color, brand)">
-                <input type="text" name="details[features][][featureValue]" placeholder="Enter value (e.g., Red, Nike, Cotton)" />
+                <input type="text" name="details[features][featureType][]" class="feature-type" placeholder="Enter type (e.g., color, brand)">
+                <input type="text" name="details[features][featureValue][]" placeholder="Enter value (e.g., Red, Nike, Cotton)" />
               `;
               container.appendChild(newFeature);
             });

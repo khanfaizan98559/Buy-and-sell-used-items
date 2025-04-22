@@ -531,6 +531,12 @@ footer {
   font-family: "Merriweather-Light", sans-serif;
   font-size: 0.75rem;
   font-weight: 300;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  display: -webkit-box; 
+  -webkit-box-orient: vertical;
+
 }
 
 .offer {
@@ -1095,6 +1101,8 @@ footer {
     font-family: "Merriweather-Light", sans-serif;
     font-size: 0.75rem;
     font-weight: 300;
+    
+    
   }
 
   .offer {
@@ -1312,12 +1320,15 @@ footer {
       display: flex;
       flex-direction: column;
       align-items: center;
+      max-height: 80vh;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+  
     }
     .sidebar-thumbnails img {
-      width: 120px;
+      width: 100px;
       border: 1px solid #ccc;
       border-radius: 5px;
-      margin-bottom: 10px;
     }
       .main-image img {
         width: 500px;
@@ -1395,12 +1406,12 @@ footer {
       .about ul li {
         margin-bottom: 5px;
       }
-      .details table {
+      .product-details table {
         margin-top: 20px;
         font-size: 14px;
       }
-      .details table td {
-        padding: 10px 20px; /* Adds space inside each cell */
+      .product-details table td {
+        padding: 2px 15px;
       }
       
       .footer {
@@ -1442,7 +1453,6 @@ footer {
       max-width: 600px;
       border-bottom: 2px solid #ccc;
       padding-bottom: 20px;
-      margin-left:20%; /* Adds left margin */
     }
 
       .product-details h2 {
@@ -1459,6 +1469,7 @@ footer {
       .product-price {
         display: flex;
         align-items: center;
+        justify-content: center;
         font-size: 14px;
         margin-bottom: 10px;
         border-bottom: 2px solid #ccc;
@@ -1485,7 +1496,8 @@ footer {
       .product-features {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        gap: 10px;
+        justify-content: space-evenly;
+        align-items: center;
         text-align: center;
         font-size: 12px;
         margin: 20px 0;
@@ -1529,8 +1541,9 @@ footer {
         padding-left: 20px;
         font-size: 14px;
       }
-
+      
       .product-about ul li {
+        text-align: left !important;
         margin-bottom: 5px;
       }
 
@@ -1862,4 +1875,67 @@ footer {
   .policy-block h2 {
     font-size: 1.3rem;
   }
+}
+
+.offlinePage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+  height: 60vh;
+  width: 100%;
+  
+
+  main{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+  header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+
+
+  header h1 {
+        font-size: 2.5rem;
+        color: #4361ee;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    header p {
+        font-size: 1.2rem;
+        color: #6c757d;
+        margin-bottom: 2rem;
+    }
+
+    main p {
+        font-size: 1rem;
+        color: #495057;
+        margin-bottom: 1.5rem;
+    }
+
+    main a {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        text-decoration: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    main a:hover {
+        background-color: #0056b3;
+    }
+
 }

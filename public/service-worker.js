@@ -1,38 +1,106 @@
-const CACHE_NAME = 'swapnest-cache-v1';
-const urlsToCache = [
-  '/',
-  '/css/style.min.css',
-  '/js/script.min.js',
-  '/images/logo.webp',
-  '/images/hero.webp',
-  '/images/contact.webp',
+const CACHE_NAME = "swapnest-cache-v1";
+const STATIC_ASSETS = [
+  "/",
+  "/css/style.css",
+  "/js/script.js",
+  "/images/logo.png",
+  "/offline",
+  "/about",
+  "/contact",
+  "/faq",
+  "/sell",
 ];
 
-self.addEventListener('install', (event) => {
+// Install event
+self.addEventListener("install", (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('Opened cache');
-      return cache.addAll(urlsToCache);
+      return cache.addAll(STATIC_ASSETS);
     })
   );
 });
 
-self.addEventListener('fetch', (event) => {
+// Fetch event
+self.addEventListener("fetch", (event) => {
+  const url = new URL(event.request.url);
+
+  // Handle navigation requests (SPA routes)
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          return caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, response.clone());
+            return response;
+          });
+        })
+        .catch(() => {
+          return caches.match(event.request).then((cachedResponse) => {
+            return cachedResponse || caches.match("/offline");
+          });
+        })
+    );
+    return;
+  }
+
+  // Network-first strategy for product pages and home
+  if (url.pathname.startsWith("/product") || url.pathname === "/") {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (
+            !response ||
+            response.status !== 200 ||
+            response.type !== "basic"
+          ) {
+            return response;
+          }
+          return caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, response.clone());
+            return response;
+          });
+        })
+        .catch(() => {
+          return caches.match(event.request).then((cachedResponse) => {
+            return cachedResponse || caches.match("/offline.html");
+          });
+        })
+    );
+    return;
+  }
+
+  // Cache-first strategy for static resources
   event.respondWith(
     caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+      return (
+        response ||
+        fetch(event.request).then((fetchResponse) => {
+          if (
+            !fetchResponse ||
+            fetchResponse.status !== 200 ||
+            fetchResponse.type !== "basic"
+          ) {
+            return fetchResponse;
+          }
+          return caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, fetchResponse.clone());
+            return fetchResponse;
+          });
+        })
+      );
     })
   );
 });
 
 // Activate event
-self.addEventListener('activate', (event) => {
-  const cacheWhitelist = [CACHE_NAME];
+self.addEventListener("activate", (event) => {
+  clients.claim();
   event.waitUntil(
     caches.keys().then((cacheNames) =>
       Promise.all(
         cacheNames.map((cacheName) => {
-          if (!cacheWhitelist.includes(cacheName)) {
+          if (cacheName !== CACHE_NAME) {
             return caches.delete(cacheName);
           }
         })
